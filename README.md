@@ -1,24 +1,17 @@
-# README
+# Wajhbook
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Facebook clone project.
 
-Things you may want to cover:
+Users can:
 
-* Ruby version
+* create posts
 
-* System dependencies
+* comment on post
 
-* Configuration
+* create wajhbook account
 
-* Database creation
+* log in to their account
 
-* Database initialization
+* update their profile
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* friend other users
