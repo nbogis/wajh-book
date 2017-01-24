@@ -1,7 +1,14 @@
-<% @posts.each do |post| %>
-  <p>Post "<%= link_to post.body,post_path(post) %>" was made by <%= post.author_name %></p>
-<% end %>
-
-<%= link_to new_post_path() do %>
-  <button>Add new post</button>
-<% end %>
+<div class="ui container">
+  <div class="ui grid">
+    <div class="twelve wide column">
+      <div class="ui feed piled segment">
+        <% @posts.each do |post| %>
+          <%= render post %>
+        <% end %>
+        <%= link_to new_post_path() do %>
+          <button>Add new post</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

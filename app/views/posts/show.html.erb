@@ -1,2 +1,9 @@
-<p><%= @post.body %></p>
-<p>By <%= @post.author_name %></p>
+<div class="ui container">
+  <div class="ui grid">
+    <div class="twelve wide column">
+      <div class="ui feed piled segment">
+        <%= render "posts/post", post: @post %>
+      </div>
+    </div>
+  </div>
+</div>

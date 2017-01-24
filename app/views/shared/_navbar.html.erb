@@ -1,5 +1,17 @@
-<div class="navbar">
-    <h1>Wajhbook</h1>
-    <div>Sign up</div>
-    <div>Sing in</div>
+<div class="ui navbar inverted menu">
+  <a href="#">
+    <%= link_to root_path do %>
+      <i class="large icons">
+        <!-- <i><%= semantic_icon('big bordered teal sun icon') %></i> -->
+        <i class="big bordered teal sun icon"></i>
+        <i class="smile teal icon"></i>
+      </i>
+      <i class="inverted large teal">WajhBook</i>
+    <% end %>
+  </a>
+  <div class="menu">
+    <%= link_to "Profile", root_path, class: "teal item" %>
+    <%= link_to "Friends", root_path, class: "teal item" %>
+    <%= link_to "Log out", root_path, class: "teal item" %>
+  </div>
 </div>

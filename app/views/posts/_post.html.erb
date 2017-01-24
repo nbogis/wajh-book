@@ -1,0 +1,38 @@
+<% if current_page?(post_path(post)) %>
+  <% on_show_page = true %>
+<% else %>
+  <% on_show_page = false %>
+<% end %>
+
+<div class="event">
+  <div class="label">
+    <img src="img/profile.jpg">
+  </div>
+  <div class="content">
+    <div class="summary">
+      <a class="user">
+        <%= post.author_name %>
+        <div class="date">
+          4 days ago
+        </div>
+    </div>
+    <div class="extra images">
+      <% unless on_show_page %>
+        <%= link_to post.body, post %>
+      <% else %>
+        <%= post.body %>
+      <% end %>
+    </div>
+    <div class="meta">
+      <a class="like">
+        <i class="like icon"></i> 1 Like
+        <% if on_show_page %>
+        <!-- show edit and delete only if I'm in the show page cuz this partial is rendered in index as well -->
+
+          <%= link_to "Edit", edit_post_path(post) %>
+          <%= link_to "Delete", edit_post_path(post) %>
+        <% end %>
+      </a>
+    </div>
+  </div>
+</div>

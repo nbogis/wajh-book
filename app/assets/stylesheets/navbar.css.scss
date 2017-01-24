@@ -1,0 +1,18 @@
+.navbar {
+  .large {
+    .icon:first-child {
+      margin-right: 0;
+    }
+  }
+  .menu {
+    font-size: 1.1rem;
+
+    .item {
+      padding: 0 8%;
+    }
+  }
+}
+
+.container {
+  padding-left: 5%;
+}

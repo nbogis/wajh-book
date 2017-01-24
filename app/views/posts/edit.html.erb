@@ -1,0 +1,14 @@
+<h1>Edit your post</h>
+
+<%= form_for @post do |f| %>
+  <ul>
+      <% @post.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+  </ul>
+  <%= f.label "Post" %>
+  <%= f.text_area :body,
+                  :placeholder => "Your post goes here" %>
+
+  <%= f.submit "Update post" %>
+<% end %>
