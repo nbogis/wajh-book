@@ -1,4 +1,4 @@
-<div class="ui navbar inverted menu">
+<div class="ui navbar fixed inverted menu">
   <a href="#">
     <%= link_to root_path do %>
       <i class="large icons">
@@ -13,10 +13,15 @@
     <%= link_to "Friends", root_path, class: "teal item" %>
     <%= link_to "Log out", root_path, class: "teal item" %>
   </div>
+
 </div>
 
 <% flash.each do |type, message| %>
-  <div class="alert"></div>
-      <%= message %>
+  <% if type == "success" %>
+    <div class="ui teal message">
+  <% else %>
+    <div class="ui red message">
+  <% end %>
+  <%= message %>
   </div>
 <% end %>
