@@ -1,8 +1,10 @@
+<%= render "shared/navbar" %>
+
 <div class="ui container">
   <div class="ui grid">
     <div class="twelve wide column">
       <div class="ui feed piled segment">
-        <%= render "posts/post", post: @post %>
+        <%= render :partial => "posts/post",  locals: { post: @post }  %>
       </div>
     </div>
   </div>

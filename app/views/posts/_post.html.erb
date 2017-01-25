@@ -12,9 +12,6 @@
     <div class="summary">
       <a class="user">
         <%= post.author_name %>
-        <div class="date">
-          4 days ago
-        </div>
     </div>
     <div class="extra images">
       <% unless on_show_page %>
@@ -22,6 +19,9 @@
       <% else %>
         <%= post.body %>
       <% end %>
+      <div class="date">
+        4 days ago
+      </div>
     </div>
     <div class="meta">
       <a class="like">

@@ -2,16 +2,21 @@
   <a href="#">
     <%= link_to root_path do %>
       <i class="large icons">
-        <!-- <i><%= semantic_icon('big bordered teal sun icon') %></i> -->
-        <i class="big bordered teal sun icon"></i>
+        <%= semantic_icon('big bordered teal sun icon') %>
         <i class="smile teal icon"></i>
       </i>
-      <i class="inverted large teal">WajhBook</i>
+      <i class="inverted large-text teal">WajhBook</i>
     <% end %>
   </a>
-  <div class="menu">
+  <div class="menu right">
     <%= link_to "Profile", root_path, class: "teal item" %>
     <%= link_to "Friends", root_path, class: "teal item" %>
     <%= link_to "Log out", root_path, class: "teal item" %>
   </div>
 </div>
+
+<% flash.each do |type, message| %>
+  <div class="alert"></div>
+      <%= message %>
+  </div>
+<% end %>

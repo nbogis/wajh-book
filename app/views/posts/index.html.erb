@@ -1,14 +1,18 @@
+<%= render "shared/navbar" %>
+
 <div class="ui container">
   <div class="ui grid">
     <div class="twelve wide column">
       <div class="ui feed piled segment">
         <% @posts.each do |post| %>
-          <%= render post %>
+          <%= render :partial => post,  locals: { post: post }  %>
+          <div class="ui divider"></div>
         <% end %>
         <%= link_to new_post_path() do %>
           <button>Add new post</button>
         <% end %>
       </div>
     </div>
+    <%= render partial: "posts/suggest_friends" %>
   </div>
 </div>

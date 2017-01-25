@@ -11,3 +11,23 @@
     }
   }
 }
+
+.date {
+  display: inline-block;
+}
+
+.container {
+  padding-top: 3%;
+}
+
+div {
+  &.ui {
+    &.feed {
+      &.piled {
+        &.segment {
+          margin: 0 5% 5% 3%;
+        }
+      }
+    }
+  }
+}
