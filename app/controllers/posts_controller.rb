@@ -52,6 +52,6 @@ class PostsController < ApplicationController
 
   private
   def whitelisted_post_params
-    params.require(:post).permit(:body,:author_name)
+    params.require(:post).permit(:body,:user_id)
   end
 end
