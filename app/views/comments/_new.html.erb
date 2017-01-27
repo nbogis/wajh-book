@@ -1,0 +1,9 @@
+<%= form_for [post, comment], :html => { class: "ui large form" } do |f| %>
+  <div class="ui feed tall stacked segment">
+    <div class="field">
+          <%= f.text_area :body,
+                          :placeholder => "Your comment goes here" %>
+    </div>
+    <%= f.submit "Comment", class: "ui fluid large teal submit button" %>
+  </div>
+<% end %>

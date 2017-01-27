@@ -4,5 +4,7 @@ Rails.application.routes.draw do
   # get 'posts/index' => 'posts#index'
   root 'posts#index'
 
-  resources :posts
+  resources :posts do
+    resources :comments, defaults: { commentable: "Post"}
+  end
 end

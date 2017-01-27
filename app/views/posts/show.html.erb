@@ -5,6 +5,17 @@
     <div class="twelve wide column">
       <div class="ui feed piled segment">
         <%= render :partial => "posts/post",  locals: { post: @post }  %>
+        <% if @post.comments.count > 0 %>
+          <% @post.comments.each do |comment| %>
+            <div>
+              <%= comment.user_id %>
+            </div>
+            <div>
+                <%= comment.body %>
+            </div>
+          <% end %>
+        <% end %>
+        <%= render :partial => "comments/new",  locals: { post: @post, comment: @comment }  %>
       </div>
     </div>
   </div>

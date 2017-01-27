@@ -21,6 +21,12 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+
+    @comments = @post.comments.all
+
+    @comment = Comment.new
+    @comment.commentable_id = @post.id
+    @comment.commentable_type = "Post"
   end
 
   def edit
@@ -54,4 +60,5 @@ class PostsController < ApplicationController
   def whitelisted_post_params
     params.require(:post).permit(:body,:user_id)
   end
+
 end

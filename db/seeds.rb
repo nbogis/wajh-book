@@ -28,7 +28,7 @@ authors = {1 => "Jack",
 
 10.times do
   puts "creating a post"
-  Post.create!(:body => Faker::Lorem.paragraphs,
+  Post.create!(:body => Faker::Lorem.paragraphs(3),
            :user_id => authors.keys.sample)
 
 
