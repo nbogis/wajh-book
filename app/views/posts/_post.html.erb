@@ -6,27 +6,27 @@
 
 <div class="event">
   <div class="label">
-    <img src="img/profile.jpg">
+    <img src="/img/elliot.jpg">
   </div>
   <div class="content">
     <div class="summary">
       <a class="user">
         <%= post.user_id %>
+        <% unless on_show_page %>
+          <%= link_to '<i class="sticky note large teal icon"></i>'.html_safe, post %>
+        <% end %>
+      </a>
     </div>
-    <div class="extra images">
-      <% unless on_show_page %>
-        <%= link_to post.body, post %>
-      <% else %>
-        <%= post.body %>
-      <% end %>
+    <div class="extra content">
+      <%= post.body %>
       <div class="date">
         4 days ago
       </div>
-    </div>
-    <div class="meta">
-      <a class="like">
-        <i class="like icon"></i> 1 Like
-      </a>
+      <div class="meta">
+        <a class="like" id="like_<%= likes_number %>">
+          <%= post.likes.count %><i class="like icon"></i>
+        </a>
+      </div>
       <% if on_show_page %>
       <!-- show edit and delete only if I'm in the show page cuz this partial is rendered in index as well -->
         <div class="ui buttons">
@@ -37,7 +37,67 @@
                                 data: { confirm: "Are you sure you want to delete your post?"},
                                 class: "ui red button" %>
         </div>
-      <% end %>
+
+        <!-- Show the comments -->
+        <% if @post.comments.count > 0 %>
+          <% @post.comments.each do |comment| %>
+            <% likes_number += 1 %>
+            <div class="comments">
+              <div class="comment">
+                <a class="avatar">
+                  <img src="/img/elliot.jpg">
+                </a>
+                <div class="content">
+                  <a class="author" href="#">
+                    <%= comment.user_id %>
+                  </a>
+                  <div class="metadata">
+                    <div class="date">2 days ago</div>
+                    <div class="meta">
+                      <a class="like" id="like_<%= likes_number %>">
+                        <%= comment.likes.count %> <i class="like icon"></i>
+                      </a>
+                    </div>
+                  <div class="text">
+                    <%= comment.body %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="ui divider"></div>
+          <% end %>
+        <% end %>
+        <!-- if in index page -->
+        <% else %>
+          <% if post.comments.count > 0 %>
+            <% likes_number += 1 %>
+              <div class="ui comments">
+                <div class="comment">
+                  <a class="avatar">
+                    <img src="/img/profile.jpg">
+                  </a>
+                  <div class="content">
+                    <a class="author" href="#">
+                      <%= post.comments.first.user_id %>
+                    </a>
+                    <div class="metadata">
+                      <div class="date">2 days ago</div>
+                      <div class="text">
+                        <%= post.comments.first.body %>
+                      </div>
+                      <div class="meta">
+                        <a class="like" id="like_<%= likes_number %>" =>
+                          <%= post.comments.first.likes.count %> <i class="like icon"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+        <% end %>
     </div>
+    <div class="ui divider"></div>
+
   </div>
 </div>

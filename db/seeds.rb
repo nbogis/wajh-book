@@ -28,9 +28,8 @@ authors = {1 => "Jack",
 
 10.times do
   puts "creating a post"
-  Post.create!(:body => Faker::Lorem.paragraphs(3),
+  Post.create!(:body => Faker::Lorem.paragraph(3),
            :user_id => authors.keys.sample)
-
 
   post = Post.last
 

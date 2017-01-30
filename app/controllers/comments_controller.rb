@@ -9,6 +9,8 @@ class CommentsController < ApplicationController
     @comment.commentable_id = params[type_id]
 
 
+    @comment.user_id = rand(1..10) # TODO: remove this after you create user
+    
     if @comment.save!
       flash[:success] = "You have successfully posted a comment"
     else

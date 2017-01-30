@@ -7,9 +7,10 @@
         <%= link_to new_post_path() do %>
           <button class="ui teal button">Add new post</button>
         <% end %>
+        <% likes_number = 0 %>
         <% @posts.each do |post| %>
-          <%= render :partial => post,  locals: { post: post }  %>
-          <div class="ui divider"></div>
+          <% likes_number += 1 %>
+          <%= render :partial => post,  locals: { post: post, likes_number: likes_number }  %>
         <% end %>
       </div>
     </div>
