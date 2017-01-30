@@ -23,7 +23,7 @@
         4 days ago
       </div>
       <div class="meta">
-        <a class="like" id="like_<%= likes_number %>">
+        <a class="like" data-id="<%= post.id %>" data-type="Post" id="like_<%= likes_number %>">
           <%= post.likes.count %><i class="like icon"></i>
         </a>
       </div>
@@ -54,7 +54,7 @@
                   <div class="metadata">
                     <div class="date">2 days ago</div>
                     <div class="meta">
-                      <a class="like" id="like_<%= likes_number %>">
+                      <a class="like" data-id="<%= comment.id %>" data-type="Comment" id="like_<%= likes_number %>">
                         <%= comment.likes.count %> <i class="like icon"></i>
                       </a>
                     </div>
@@ -86,7 +86,7 @@
                         <%= post.comments.first.body %>
                       </div>
                       <div class="meta">
-                        <a class="like" id="like_<%= likes_number %>" =>
+                        <a class="like" data-id="<%= post.comments.first.id %>" data-type="Comment" id="like_<%= likes_number %>">
                           <%= post.comments.first.likes.count %> <i class="like icon"></i>
                         </a>
                       </div>

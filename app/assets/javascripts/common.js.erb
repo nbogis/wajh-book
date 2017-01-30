@@ -1,0 +1,15 @@
+$(document).ready(function(){
+  // select all likes and change the clicked one to unlike
+  // select all ids start with likes_
+  $("[id^='like_']").on('click', function() {
+    $('#' + this.id).find('i').toggleClass('like empty heart');
+    IncrementLikes(this);
+  });
+});
+
+
+var IncrementLikes = (function (element){
+  var type = $(element).data("type");
+  var id = $(element).data("id");
+  console.log($parent);
+});
