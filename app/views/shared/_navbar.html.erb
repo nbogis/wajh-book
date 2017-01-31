@@ -9,9 +9,14 @@
     <% end %>
   </a>
   <div class="menu right">
-    <%= link_to "Profile", root_path, class: "teal item" %>
-    <%= link_to "Friends", root_path, class: "teal item" %>
-    <%= link_to "Log out", root_path, class: "teal item" %>
+    <% if user_signed_in? %>
+      <div class="teal item">Signed in as <%= current_user.first_name %> <%= current_user.last_name %></div>
+      <%= link_to "Profile", root_path, class: "teal item" %>
+      <%= link_to "Friends", root_path, class: "teal item" %>
+      <%= link_to "Log out", log_out_path, method: :delete, class: "teal item" %>
+    <% else %>
+      <%= link_to "Sign in", sign_in_path, class: "teal item" %>
+    <% end %>
   </div>
 
 </div>
