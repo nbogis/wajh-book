@@ -1,9 +1,9 @@
 class Posting < ApplicationRecord
 
   belongs_to :postable, polymorphic: true
-  validates :postable, presense: true
+  validates :postable, presence: true
 
   belongs_to :user
-  validates :user, presense: true
+  validates :user, presence: true
 
 end

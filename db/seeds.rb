@@ -6,53 +6,58 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+puts "destroy all users"
+User.destroy_all
+
 puts "destroying all posts"
 Post.destroy_all
 
 puts "destroying all comments"
 Comment.destroy_all
 
-puts "destroying all likes"
-Like.destroy_all
+# it get automaticall destroyed by the dependency
+# puts "destroying all likes"
+# Like.destroy_all
 
+puts "destroying all postings"
+Posting.destroy_all
 
-authors = {1 => "Jack",
-           2 => "Emily",
-           3 => "Daniel",
-           4 => "John",
-           5 => "Gabe",
-           6 => "Sarah",
-           7 => "Judy",
-           8 => "Alexandra",
-           9 => "Maria"}
+puts "create users"
+10.times do |i|
+  password = Faker::Internet.password(5, 15)
+  author = User.new(:id => i,
+               :email => Faker::Internet.email,
+               :username => Faker::Internet.user_name,
+               :password => password,
+               :password_confirmation => password)
+  author.save!
+
+end
 
 10.times do
   puts "creating a post"
-  Post.create!(:body => Faker::Lorem.paragraph(3),
-           :user_id => authors.keys.sample)
+  user = User.find(rand(0..9))
+  post = Post.create!(:body => Faker::Lorem.paragraph(3))
 
-  post = Post.last
+  user.postings.create!(:postable_type => "Post",
+                        :postable_id => post.id)
 
   puts "creating random comments"
   rand(0..6).times do
-    Comment.create!(:body => Faker::Lorem.sentence,
-                :user_id => authors.keys.sample,
-                :commentable_type => "Post",
-                :commentable_id => post.id)
+    user = User.find(rand(0..9))
+    comment = post.comments.create!(:body => Faker::Lorem.sentence,
+                          :user_id => user.id)
 
 
-    puts "creating random likes for the comment"
-    rand(0..6).times do
-      Like.create!(:user_id => authors.keys.sample,
-                   :likeable_type => "Comment",
-                   :likeable_id => Comment.last.id)
-    end
+    # puts "creating random likes for the comment"
+    # rand(0..6).times do
+    #   comment.likes.create!(:user_id => rand(0..10))
+    # end
   end
 
   puts "creating random likes for the post"
   rand(0..6).times do
-    Like.create!(:user_id => authors.keys.sample,
-                 :likeable_type => "Post",
-                 :likeable_id => post.id)
+    user = User.find(rand(0..9))
+    post.likes.create!(:user_id => user.id)
   end
 end

@@ -5,7 +5,7 @@
     <div class="twelve wide column">
       <div class="ui feed piled segment">
         <!-- Show the post -->
-        <%= render :partial => "posts/post",  locals: { post: @post, likes_number: 1 }  %>
+        <%= render :partial => "posts/post",  locals: { post: @post, poster: @poster, likes_number: 1 }  %>
         <!-- Show add new comment form -->
         <%= render :partial => "comments/new",  locals: { post: @post, comment: @comment }  %>
       </div>

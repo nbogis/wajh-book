@@ -1,8 +1,12 @@
 class PostsController < ApplicationController
 
+  before_action :require_login, except: [:index, :show]
   def index
-    @posts = Post.order(created_at: :desc )
-    
+    @posts = Post.order(created_at: :desc)
+    @names = []
+    @posts.each do |post|
+      @names.push(post.authors.last.username)
+    end
   end
 
   def new
@@ -10,18 +14,20 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(whitelisted_post_params) # params with author and body to submit to db
+    user = current_user
 
-    if @post.save
+    if @post = user.text_posts.create!(whitelisted_post_params)
       flash[:success] = "You successfully created a post"
       redirect_to :root
     else
+      flash[:error] = "Sorry your post couldn't be created"
       render :new
     end
   end
 
   def show
     @post = Post.find(params[:id])
+    @poster = @post.authors.last.username
 
     @comments = @post.comments.all
 
@@ -59,7 +65,7 @@ class PostsController < ApplicationController
 
   private
   def whitelisted_post_params
-    params.require(:post).permit(:body,:user_id)
+    params.require(:post).permit(:body)
   end
 
 end

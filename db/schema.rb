@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20170131013129) do
     t.string   "commentable_type"
     t.integer  "commentable_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 20170131013129) do
     t.string   "likeable_type"
     t.integer  "likeable_id"
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable_type_and_likeable_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "postings", force: :cascade do |t|
@@ -38,10 +40,10 @@ ActiveRecord::Schema.define(version: 20170131013129) do
     t.string   "postable_type"
     t.integer  "postable_id"
     t.index ["postable_type", "postable_id"], name: "index_postings_on_postable_type_and_postable_id"
+    t.index ["user_id"], name: "index_postings_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer  "user_id"
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -50,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170131013129) do
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "username",               default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.date     "dob"

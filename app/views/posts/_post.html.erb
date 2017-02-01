@@ -11,7 +11,7 @@
   <div class="content">
     <div class="summary">
       <a class="user">
-        <%= post.user_id %>
+        <%= poster %>
         <% unless on_show_page %>
           <%= link_to '<i class="sticky note large teal icon"></i>'.html_safe, post %>
         <% end %>
@@ -24,9 +24,22 @@
       </div>
       <div class="meta">
         <a class="like">
-          <%= post.likes.count %><i class="like icon"></i>
+          <%= post.likes.count %>
+          <% if post.likes.count == 0 %>
+            <i class="like icon"></i>
+          <% else %>
+            <i class="like icon" data-content="Liked by: <% post.likers.each do |liker| %>
+              <%= liker.username %>
+            <% end %>"></i>
+          <% end %>
         </a>
       </div>
+      <!-- show number of comments with names in popup -->
+      <div class="meta "><%= post.commenters.count %><i class="comments icon" data-content="Commented by: <% post.commenters.each do |commenter| %>
+        <%= commenter.username %>
+      <% end %>"></i>
+      </div>
+
       <% if on_show_page %>
       <!-- show edit and delete only if I'm in the show page cuz this partial is rendered in index as well -->
         <div class="ui buttons">
@@ -41,7 +54,6 @@
         <!-- Show the comments -->
         <% if @post.comments.count > 0 %>
           <% @post.comments.each do |comment| %>
-            <% likes_number += 1 %>
             <div class="comments">
               <div class="comment">
                 <a class="avatar">
@@ -49,13 +61,20 @@
                 </a>
                 <div class="content">
                   <a class="author" href="#">
-                    <%= comment.user_id %>
+                    <%= comment.user.username %>
                   </a>
                   <div class="metadata">
                     <div class="date">2 days ago</div>
                     <div class="meta">
                       <a class="like">
-                        <%= comment.likes.count %> <i class="like icon"></i>
+                        <%= comment.likes.count %>
+                        <% if comment.likes.count == 0 %>
+                          <i class="like icon"></i>
+                        <% else %>
+                          <i class="like icon" data-content="Liked by: <% comment.likers.each do |liker| %>
+                          <%= liker.username %>
+                          <% end %>"></i>
+                        <% end %>
                       </a>
                     </div>
                   <div class="text">
@@ -78,7 +97,7 @@
                   </a>
                   <div class="content">
                     <a class="author" href="#">
-                      <%= post.comments.first.user_id %>
+                      <%= post.comments.first.user.username %>
                     </a>
                     <div class="metadata">
                       <div class="date">2 days ago</div>
@@ -87,7 +106,14 @@
                       </div>
                       <div class="meta">
                         <a class="like">
-                          <%= post.comments.first.likes.count %> <i class="like icon"></i>
+                          <%= post.comments.first.likes.count %>
+                          <% if post.comments.first.likes.count == 0 %>
+                            <i class="like icon"></i>
+                          <% else %>
+                            <i class="like icon" data-content="Liked by: <% post.comments.first.likers.each do |liker| %>
+                              <%= liker.username %>
+                            <% end %>"></i>
+                          <% end %>
                         </a>
                       </div>
                     </div>
@@ -97,7 +123,5 @@
           <% end %>
         <% end %>
     </div>
-    <div class="ui divider"></div>
-
   </div>
 </div>
