@@ -29,7 +29,12 @@
             <%= liker.username %>
           <% end %><%end %>">
           <%= post.likes.count %>
-          <%= link_to '<i class="like icon"></i>'.html_safe,post_likes_path(post), method: :create, class: 'like' %>
+          <% unless post.likers.include? current_user %>
+            <%= link_to '<i class="like icon"></i>'.html_safe,post_likes_path(post), method: :create, class: 'like' %>
+          <% end %>
+          <% if post.likers.include? current_user %>
+            <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, post.id, "Post").last), method: :delete, class: 'like' %>
+          <% end %>
         </div>
 
       </div>
@@ -71,7 +76,14 @@
                           <%= liker.username %>
                         <% end %><%end %>">
                         <%= comment.likes.count %>
-                        <%= link_to '<i class="like icon"></i>'.html_safe,comment_likes_path(comment), method: :create, class: 'like' %>
+                        <!-- if the user hasn't likes the comment, show the like icon -->
+                        <% unless comment.likers.include? current_user %>
+                          <%= link_to '<i class="like icon"></i>'.html_safe,comment_likes_path(comment), method: :create, class: 'like' %>
+                        <% end %>
+                        <!-- if the user already like the comment, show the unlike icon -->
+                        <% if comment.likers.include? current_user %>
+                          <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, comment.id, "Comment").last), method: :delete, class: 'like' %>
+                        <% end %>
                       </div>
                     </div>
                     <div class="text">
@@ -108,7 +120,14 @@
                             <%= liker.username %>
                           <% end %><%end %>">
                           <%= comment.likes.count %>
-                          <%= link_to '<i class="like icon"></i>'.html_safe,comment_likes_path(comment), method: :create, class: 'like' %>
+                          <!-- if the user hasn't likes the comment, show the like icon -->
+                          <% unless comment.likers.include? current_user %>
+                            <%= link_to '<i class="like icon"></i>'.html_safe,comment_likes_path(comment), method: :create, class: 'like' %>
+                          <% end %>
+                          <!-- if the user already like the comment, show the unlike icon -->
+                          <% if comment.likers.include? current_user %>
+                            <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, comment.id, "Comment").last), method: :delete, class: 'like' %>
+                          <% end %>
                         </div>
                       </div>
                     </div>
