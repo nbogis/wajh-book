@@ -23,15 +23,19 @@
         4 days ago
       </div>
       <div class="meta">
-        <div class="likes" data-content="<% if post.likes.count > 0 %>
+        <div class="likes" data-content="
+        <% if post.likes.count > 0 %>
           Liked by:
           <% post.likers.each do |liker| %>
             <%= liker.username %>
-          <% end %><%end %>">
+          <% end %>
+        <%end %>">
           <%= post.likes.count %>
+          <!-- show like icon when user hasn't liked post -->
           <% unless post.likers.include? current_user %>
             <%= link_to '<i class="like icon"></i>'.html_safe,post_likes_path(post), method: :create, class: 'like' %>
           <% end %>
+          <!-- show unlike icon if user already liked post -->
           <% if post.likers.include? current_user %>
             <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, post.id, "Post").last), method: :delete, class: 'like' %>
           <% end %>
@@ -39,9 +43,13 @@
 
       </div>
       <!-- show number of comments with names in popup -->
-      <div class="meta "><%= post.commenters.count %><i class="comments icon" data-content="Commented by: <% post.commenters.each do |commenter| %>
-        <%= commenter.username %>,
-      <% end %>"></i>
+      <div class="meta ">
+        <%= post.commenters.count %>
+        <i class="comments icon" data-content="
+          Commented by: <% post.commenters.each do |commenter| %>
+          <%= commenter.username %>,
+          <% end %>">
+        </i>
       </div>
 
       <% if on_show_page %>
@@ -58,84 +66,20 @@
         <!-- Show the comments -->
         <% if post.comments.count > 0 %>
           <% post.comments.each do |comment| %>
-            <div class="comments">
-              <div class="comment">
-                <a class="avatar">
-                  <img src="/img/elliot.jpg">
-                </a>
-                <div class="content">
-                  <a class="author" href="#">
-                    <%= comment.user.username %>
-                  </a>
-                  <div class="metadata">
-                    <div class="date">2 days ago</div>
-                    <div class="meta">
-                      <div class="likes" data-content="<% if comment.likes.count > 0 %>
-                        Liked by:
-                        <% comment.likers.each do |liker| %>
-                          <%= liker.username %>
-                        <% end %><%end %>">
-                        <%= comment.likes.count %>
-                        <!-- if the user hasn't likes the comment, show the like icon -->
-                        <% unless comment.likers.include? current_user %>
-                          <%= link_to '<i class="like icon"></i>'.html_safe,comment_likes_path(comment), method: :create, class: 'like' %>
-                        <% end %>
-                        <!-- if the user already like the comment, show the unlike icon -->
-                        <% if comment.likers.include? current_user %>
-                          <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, comment.id, "Comment").last), method: :delete, class: 'like' %>
-                        <% end %>
-                      </div>
-                    </div>
-                    <div class="text">
-                      <%= comment.body %>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="ui comments">
+              <%= render :partial => "comments/show",  locals: { comment: comment}  %>
             <div class="ui divider"></div>
           <% end %>
         <% end %>
         <!-- if in index page -->
-        <% else %>
-          <% if post.comments.count > 0 %>
-            <% comment = post.comments.first %>
-              <div class="ui comments">
-                <div class="comment">
-                  <a class="avatar">
-                    <img src="/img/profile.jpg">
-                  </a>
-                  <div class="content">
-                    <a class="author" href="#">
-                      <%= comment.user.username %>
-                    </a>
-                    <div class="metadata">
-                      <div class="date">2 days ago</div>
-                      <div class="text">
-                        <%= comment.body %>
-                      </div>
-                      <div class="meta">
-                        <div class="likes" data-content="<% if comment.likes.count > 0 %>
-                          Liked by:
-                          <% comment.likers.each do |liker| %>
-                            <%= liker.username %>
-                          <% end %><%end %>">
-                          <%= comment.likes.count %>
-                          <!-- if the user hasn't likes the comment, show the like icon -->
-                          <% unless comment.likers.include? current_user %>
-                            <%= link_to '<i class="like icon"></i>'.html_safe,comment_likes_path(comment), method: :create, class: 'like' %>
-                          <% end %>
-                          <!-- if the user already like the comment, show the unlike icon -->
-                          <% if comment.likers.include? current_user %>
-                            <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, comment.id, "Comment").last), method: :delete, class: 'like' %>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          <% end %>
+      <% else %>
+        <% if post.comments.count > 0 %>
+          <% comment = post.comments.first %>
+          <div class="ui comments">
+            <%= render :partial => "comments/show",  locals: { comment: comment}  %>
+          </div>
         <% end %>
+      <% end %>
     </div>
   </div>
 </div>
