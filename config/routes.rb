@@ -13,10 +13,8 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :profile, only: [:show]
+    resource :profile, only: [:edit, :update, :show]
   end
-
-  resources :profile, only: [:edit, :update]
 
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new"

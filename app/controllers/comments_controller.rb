@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-
+  before_action :require_login
   def create
     @comment = Comment.new(whitelisted_comment_params)
     # post_id is in params not commentable_id and type. This could be picture_id so we need to do get the type id to get commentable_id
@@ -9,8 +9,8 @@ class CommentsController < ApplicationController
     @comment.commentable_id = params[type_id]
 
 
-    @comment.user_id = rand(1..10) # TODO: remove this after you create user
-    
+    @comment.user_id = current_user.id 
+
     if @comment.save!
       flash[:success] = "You have successfully posted a comment"
     else

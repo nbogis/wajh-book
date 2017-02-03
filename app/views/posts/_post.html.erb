@@ -23,20 +23,19 @@
         4 days ago
       </div>
       <div class="meta">
-        <a class="like">
+        <div class="likes" data-content="<% if post.likes.count > 0 %>
+          Liked by:
+          <% post.likers.each do |liker| %>
+            <%= liker.username %>
+          <% end %><%end %>">
           <%= post.likes.count %>
-          <% if post.likes.count == 0 %>
-            <i class="like icon"></i>
-          <% else %>
-            <i class="like icon" data-content="Liked by: <% post.likers.each do |liker| %>
-              <%= liker.username %>
-            <% end %>"></i>
-          <% end %>
-        </a>
+          <%= link_to '<i class="like icon"></i>'.html_safe,post_likes_path(post), method: :create, class: 'like' %>
+        </div>
+
       </div>
       <!-- show number of comments with names in popup -->
       <div class="meta "><%= post.commenters.count %><i class="comments icon" data-content="Commented by: <% post.commenters.each do |commenter| %>
-        <%= commenter.username %>
+        <%= commenter.username %>,
       <% end %>"></i>
       </div>
 
@@ -52,8 +51,8 @@
         </div>
 
         <!-- Show the comments -->
-        <% if @post.comments.count > 0 %>
-          <% @post.comments.each do |comment| %>
+        <% if post.comments.count > 0 %>
+          <% post.comments.each do |comment| %>
             <div class="comments">
               <div class="comment">
                 <a class="avatar">
@@ -66,30 +65,28 @@
                   <div class="metadata">
                     <div class="date">2 days ago</div>
                     <div class="meta">
-                      <a class="like">
-                        <%= comment.likes.count %>
-                        <% if comment.likes.count == 0 %>
-                          <i class="like icon"></i>
-                        <% else %>
-                          <i class="like icon" data-content="Liked by: <% comment.likers.each do |liker| %>
+                      <div class="likes" data-content="<% if comment.likes.count > 0 %>
+                        Liked by:
+                        <% comment.likers.each do |liker| %>
                           <%= liker.username %>
-                          <% end %>"></i>
-                        <% end %>
-                      </a>
+                        <% end %><%end %>">
+                        <%= comment.likes.count %>
+                        <%= link_to '<i class="like icon"></i>'.html_safe,comment_likes_path(comment), method: :create, class: 'like' %>
+                      </div>
                     </div>
-                  <div class="text">
-                    <%= comment.body %>
+                    <div class="text">
+                      <%= comment.body %>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             <div class="ui divider"></div>
           <% end %>
         <% end %>
         <!-- if in index page -->
         <% else %>
           <% if post.comments.count > 0 %>
-            <% likes_number += 1 %>
+            <% comment = post.comments.first %>
               <div class="ui comments">
                 <div class="comment">
                   <a class="avatar">
@@ -97,24 +94,22 @@
                   </a>
                   <div class="content">
                     <a class="author" href="#">
-                      <%= post.comments.first.user.username %>
+                      <%= comment.user.username %>
                     </a>
                     <div class="metadata">
                       <div class="date">2 days ago</div>
                       <div class="text">
-                        <%= post.comments.first.body %>
+                        <%= comment.body %>
                       </div>
                       <div class="meta">
-                        <a class="like">
-                          <%= post.comments.first.likes.count %>
-                          <% if post.comments.first.likes.count == 0 %>
-                            <i class="like icon"></i>
-                          <% else %>
-                            <i class="like icon" data-content="Liked by: <% post.comments.first.likers.each do |liker| %>
-                              <%= liker.username %>
-                            <% end %>"></i>
-                          <% end %>
-                        </a>
+                        <div class="likes" data-content="<% if comment.likes.count > 0 %>
+                          Liked by:
+                          <% comment.likers.each do |liker| %>
+                            <%= liker.username %>
+                          <% end %><%end %>">
+                          <%= comment.likes.count %>
+                          <%= link_to '<i class="like icon"></i>'.html_safe,comment_likes_path(comment), method: :create, class: 'like' %>
+                        </div>
                       </div>
                     </div>
                   </div>

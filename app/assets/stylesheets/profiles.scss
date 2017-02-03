@@ -1,0 +1,39 @@
+// Place all the styles related to the profiles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.img-container {
+  height: 50vh;
+  padding: 0 3vw;
+
+  .background-img {
+    height: 100% !important;
+    height: 50vh;
+    position: relative;
+  }
+
+  .shape {
+    position: absolute !important;
+    bottom: 45%;
+    left: 5%;
+    max-width: 35%;
+    min-width: 30%;
+    max-height: 30%;
+    min-height: 30%;
+  }
+
+  .animating {
+    width: 30%;
+    height: 30%;
+  }
+}
+
+.requested-freinds {
+  .card {
+    width: 70% !important;
+
+    .content {
+      font-size: 0.8rem;
+    }
+  }
+}

@@ -7,6 +7,8 @@ class User < ApplicationRecord
   validates :username, :email, :password, presence: true
   validates :username, :email, uniqueness: true
 
+  has_one :profile, dependent: :destroy
+
   has_many :postings, dependent: :destroy
   has_many :text_posts, through: :postings, source: :postable, source_type: "Post", dependent: :destroy
 

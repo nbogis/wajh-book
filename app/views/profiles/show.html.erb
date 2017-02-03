@@ -1,0 +1,335 @@
+<%= render "shared/navbar" %>
+
+<!-- background and profile image -->
+  <div class="ui img-container">
+    <img class="ui background-img fluid image" src="/img/background.jpg"></img>
+    <div class="ui square shape">
+          <div class="sides">
+            <div class="side active">
+              <div class="ui card">
+                <div class="image">
+                  <img src="/img/profile.jpg">
+                </div>
+                <div class="content">
+                  <div class="header">Mashmoosh</div>
+                </div>
+              </div>
+            </div>
+            <div class="side">
+              <div class="ui card">
+                <div class="content">
+                  <a class="header">Mashmoosh</a>
+                </div>
+                <div class="content">
+                  <div class="meta">
+                    <div class="Age">Age: 17</div>
+                  </div>
+                  <div class="description">
+                    Mashmoosh is a Computer Science student studying at SLU. He loves to play soccor and enjoys cooking ethnic food.
+                  </div>
+                </div>
+                <div class="content">
+                  <div class="extra content">
+                    <span>
+                      <i class="user icon"></i>
+                      22 Friends
+                    </span>
+                    <span class="right floated">
+                      Joined in 2013
+                    </span>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+  <!-- End background and profile image -->
+  <!--  Pointing menu with about, timeline, freinds and photos-->
+  <div class="ui pointing menu">
+    <div class="ui container">
+      <a class="active item" data-tab="timeline">
+        Timeline
+      </a>
+      <a class="item" data-tab="about">
+        About
+      </a>
+      <a class="item" data-tab="friends">
+        Friends
+      </a>
+      <a class="item" data-tab="photos">
+        Photos
+      </a>
+    </div>
+  </div>
+
+  <div class="ui segment">
+  <!-- About segment -->
+  <div class="ui bottom attached tab segment" data-tab="about">
+    <div class="ui grid">
+      <div class="four wide column">
+        <div class="ui vertical fluid tabular menu">
+          <a class="active item" data-tab="overview">
+            Overview
+          </a>
+          <a class="item" data-tab="work-and-education">
+            Work and Education
+          </a>
+          <a class="item" data-tab="places-lived">
+            Placed You've Lived
+          </a>
+          <a class="item" data-tab="family-and-relationships">
+            Family and Relationships
+          </a>
+        </div>
+      </div>
+      <div class="twelve wide stretched column">
+          <div class="ui attached tab segment active" data-tab="overview">
+            Studied Computer Engineering at <a>SLU</a>
+            <div class="ui divider"></div>
+            Lived in <a>St. Louis, MO</a>
+            From <a>Madrid, Spain</a>
+            <div class="ui divider"></div>
+            Married to <a>Tami</a> since December 21, 2014
+          </div>
+          <div class="ui attached tab segment" data-tab="work-and-education">
+            <h3>Work</h3>
+            <a>Mahmoosh industry</a>
+            <div class="ui divider"></div>
+            <h3>College</h3>
+            <a>Saint Louis University</a>
+            <div class="ui divider"></div>
+            <h3>High School</h3>
+            <a>Saint Louis High School</a>
+          </div>
+          <div class="ui attached tab segment" data-tab="places-lived">
+            <h3>Current City</h3>
+            <a>St. Louis</a>
+            <div class="ui divider"></div>
+            <h3>Hometown</h3>
+            <a>Madrid, Spain</a>
+          </div>
+          <div class="ui attached tab segment" data-tab="family-and-relationships">
+            <h3>Relationship</h3>
+            <a>Tami</a>
+            <p>Married since December 21,2014</p>
+            <div class="ui divider"></div>
+            <h3>Family Members</h3>
+            <a>Tuffaha</a><p>sister</p>
+            <div class="ui divider"></div>
+            <a>Hannod</a><p>brother</p>
+            <div class="ui divider"></div>
+            <a>Zuzu</a><p>Mother</p>
+            <div class="ui divider"></div>
+            <a>Fufu</a><p>Father</p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <!-- End about segment-->
+  <!-- Timeline segment-->
+  <div class="ui bottom attached tab segment active" data-tab="timeline">
+      <div class="ui feed">
+        <div class="event">
+          <div class="label">
+            <img src="img/profile.jpg">
+          </div>
+          <div class="content">
+            <div class="summary">
+              <a class="user">
+                Mashmoosh
+              </a> changed his profile picture
+              <div class="date">
+                1 Hour Ago
+              </div>
+            </div>
+            <div class="meta">
+              <a class="like">
+                <i class="like icon"></i> 4 Likes
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="label">
+            <img src="img/profile.jpg">
+          </div>
+          <div class="content">
+            <div class="summary">
+              <a>Mahsmoosh</a> added <a>2 new photos</a>
+              <div class="date">
+                4 days ago
+              </div>
+            </div>
+            <div class="extra images">
+              <a><img src="img/background.jpg"></a>
+              <a><img src="img/background.jpg"></a>
+            </div>
+            <div class="meta">
+              <a class="like">
+                <i class="like icon"></i> 11 Like
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="label">
+            <img src="img/profile.jpg">
+          </div>
+          <div class="content">
+            <div class="summary">
+              <a class="user">
+                Mahsmoosh
+              </a> posted ob his page
+              <div class="date">
+                2 Days Ago
+              </div>
+            </div>
+            <div class="extra text">
+              Played good game last night.
+            </div>
+            <div class="meta">
+              <a class="like">
+                <i class="like icon"></i> 8 Likes
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="label">
+            <img src="img/profile.jpg">
+          </div>
+          <div class="content">
+            <div class="summary">
+              <a>Joe Henderson</a> posted on his page
+              <div class="date">
+                3 days ago
+              </div>
+            </div>
+            <div class="extra text">
+              Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
+            </div>
+            <div class="meta">
+              <a class="like">
+                <i class="like icon"></i> 5 Likes
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="label">
+            <img src="img/profile.jpg">
+          </div>
+          <div class="content">
+            <div class="summary">
+              <a>Mashmoosh</a> added <a>2 new photos</a>
+              <div class="date">
+                4 days ago
+              </div>
+            </div>
+            <div class="extra images">
+              <a><img src="img/background.jpg"></a>
+              <a><img src="img/background.jpg"></a>
+            </div>
+            <div class="meta">
+              <a class="like">
+                <i class="like icon"></i> 41 Likes
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- End timeline segment -->
+  <!-- Friends segment -->
+  <div class="ui bottom attached tab segment" data-tab="friends">
+    <div class="ui link cards">
+      <div class="card">
+        <div class="image">
+          <img src="img/profile.jpg">
+        </div>
+        <div class="content">
+          <div class="header">Matt Giampietro</div>
+          <div class="meta">
+            <a>Friends</a>
+          </div>
+          <div class="description">
+            Matthew is an interior designer living in New York.
+          </div>
+        </div>
+        <div class="extra content">
+          <span class="right floated">
+            Joined in 2013
+          </span>
+          <span>
+            <i class="user icon"></i>
+            75 Friends
+          </span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image">
+          <img src="img/profile.jpg">
+        </div>
+        <div class="content">
+          <div class="header">Molly</div>
+          <div class="meta">
+            <span class="date">Coworker</span>
+          </div>
+          <div class="description">
+            Molly is a personal assistant living in Paris.
+          </div>
+        </div>
+        <div class="extra content">
+          <span class="right floated">
+            Joined in 2011
+          </span>
+          <span>
+            <i class="user icon"></i>
+            35 Friends
+          </span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="image">
+          <img src="img/profile.jpg">
+        </div>
+        <div class="content">
+          <div class="header">Elyse</div>
+          <div class="meta">
+            <a>Coworker</a>
+          </div>
+          <div class="description">
+            Elyse is a copywriter working in New York.
+          </div>
+        </div>
+        <div class="extra content">
+          <span class="right floated">
+            Joined in 2014
+          </span>
+          <span>
+            <i class="user icon"></i>
+            151 Friends
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End friends segment -->
+  <!-- Photos segment -->
+  <div class="ui bottom attached tab segment" data-tab="photos">
+    <div class="ui medium images">
+      <img src="img/profile.jpg">
+      <img src="img/profile.jpg">
+      <img src="img/profile.jpg">
+      <img src="img/profile.jpg">
+      <img src="img/profile.jpg">
+      <img src="img/profile.jpg">
+      <img src="img/profile.jpg">
+      <img src="img/profile.jpg">
+    </div>
+  </div>
+  <!-- End photos segment -->
+</div>
+  <!-- End pointing menu -->

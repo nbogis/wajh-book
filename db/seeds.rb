@@ -25,18 +25,18 @@ Posting.destroy_all
 puts "create users"
 10.times do |i|
   password = Faker::Internet.password(5, 15)
-  author = User.new(:id => i,
+  user = User.new(:id => i,
                :email => Faker::Internet.email,
                :username => Faker::Internet.user_name,
                :password => password,
                :password_confirmation => password)
-  author.save!
-
+  user.save!
 end
 
 10.times do
   puts "creating a post"
   user = User.find(rand(0..9))
+
   post = Post.create!(:body => Faker::Lorem.paragraph(3))
 
   user.postings.create!(:postable_type => "Post",

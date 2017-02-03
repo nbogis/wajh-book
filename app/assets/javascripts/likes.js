@@ -4,5 +4,11 @@
 
 
 $(document).ready(function(){
-  $('.like').popup();
+  $('.likes').popup();
+
+  $('.like > .num_likes > .like').on('click', function() {
+    console.log("liked");
+    $('.like > .like').parent().siblings().find('.empty').removeClass('hidden');
+    $('.like > .like').addClass('hidden');
+  });
 });

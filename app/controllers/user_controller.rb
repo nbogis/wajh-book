@@ -13,6 +13,7 @@ class UserController < ApplicationController
       @user = User.new(whitelisted_user_params)
 
       if @user.save
+        @user.profile.create!()
         flash[:success] = "congratulations! You are now part of WajhBook"
         sign_in @user
         redirect_to root_path

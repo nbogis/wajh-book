@@ -14,15 +14,15 @@ class PostsController < ApplicationController
   end
 
   def create
-    user = current_user
+      user = current_user
 
-    if @post = user.text_posts.create!(whitelisted_post_params)
-      flash[:success] = "You successfully created a post"
-      redirect_to :root
-    else
-      flash[:error] = "Sorry your post couldn't be created"
-      render :new
-    end
+      if @post = user.text_posts.create!(whitelisted_post_params)
+        flash[:success] = "You successfully created a post"
+        redirect_to :root
+      else
+        flash[:error] = "Sorry your post couldn't be created"
+        render :new
+      end
   end
 
   def show
