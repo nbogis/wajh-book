@@ -23,13 +23,11 @@
         4 days ago
       </div>
       <div class="meta">
-        <div class="likes" data-content="
-        <% if post.likes.count > 0 %>
+        <div class="likes" data-content="<% if post.likes.count > 0 %>
           Liked by:
           <% post.likers.each do |liker| %>
             <%= liker.username %>
-          <% end %>
-        <%end %>">
+          <% end %><%end %>">
           <%= post.likes.count %>
           <!-- show like icon when user hasn't liked post -->
           <% unless post.likers.include? current_user %>
