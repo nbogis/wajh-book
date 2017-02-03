@@ -20,4 +20,6 @@ class User < ApplicationRecord
   # has_many :liked_text_posts, through: :likes, source: :likeable, source_type: "Post", dependent: :destroy
   # has_many :likes_comments, through: :likes, source: :likeable, source_type: "Comment", dependent: :destroy
 
+  after_create :create_profile
+
 end

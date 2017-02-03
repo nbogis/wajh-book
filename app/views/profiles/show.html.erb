@@ -1,49 +1,88 @@
-<%= render "shared/navbar" %>
+<div class="ui navbar fixed inverted menu">
+  <a href="#">
+    <%= link_to root_path do %>
+      <i class="large icons">
+        <%= semantic_icon('big bordered teal sun icon') %>
+        <i class="smile teal icon"></i>
+      </i>
+      <i class="inverted large-text teal">WajhBook</i>
+    <% end %>
+  </a>
+  <div class="menu right">
+    <div class="teal item">Signed in as <%= current_user.username %></div>
+      <% if current_user == @user %>
+        <%= link_to "Edit Profile", edit_user_profile_path(@user), class: "teal item" %>
+      <% end %>
+      <%= link_to "Profile", user_profile_path(current_user), class: "teal item" %>
+      <%= link_to "Friends", root_path, class: "teal item" %>
+      <%= link_to "Log out", log_out_path, method: :delete, class: "teal item" %>
+  </div>
+</div>
+
+<% flash.each do |type, message| %>
+  <% if type == "success" %>
+    <div class="ui teal message">
+  <% else %>
+    <div class="ui red message">
+  <% end %>
+  <%= message %>
+  </div>
+<% end %>
+
+<!-- if the profile hasn't been edited -->
+<% if @profile.updated_at == @profile.created_at %>
+  <div class="ui container">
+    <%= link_to edit_user_profile_path(@user) do %>
+      <button class="ui teal button">Edit profile</button>
+    <% end %>
+  </div>
+<% else %>
 
 <!-- background and profile image -->
   <div class="ui img-container">
-    <img class="ui background-img fluid image" src="/img/background.jpg"></img>
-    <div class="ui square shape">
-          <div class="sides">
-            <div class="side active">
-              <div class="ui card">
-                <div class="image">
-                  <img src="/img/profile.jpg">
-                </div>
-                <div class="content">
-                  <div class="header">Mashmoosh</div>
-                </div>
-              </div>
-            </div>
-            <div class="side">
-              <div class="ui card">
-                <div class="content">
-                  <a class="header">Mashmoosh</a>
-                </div>
-                <div class="content">
-                  <div class="meta">
-                    <div class="Age">Age: 17</div>
-                  </div>
-                  <div class="description">
-                    Mashmoosh is a Computer Science student studying at SLU. He loves to play soccor and enjoys cooking ethnic food.
-                  </div>
-                </div>
-                <div class="content">
-                  <div class="extra content">
-                    <span>
-                      <i class="user icon"></i>
-                      22 Friends
-                    </span>
-                    <span class="right floated">
-                      Joined in 2013
-                    </span>
 
+    <img class="ui background-img fluid image" src="/img/background.jpg"></img>
+      <div class="ui square shape">
+            <div class="sides">
+              <div class="side active">
+                <div class="ui card">
+                  <div class="image">
+                    <img src="/img/profile.jpg">
+                  </div>
+                  <div class="content">
+                    <div class="header">Mashmoosh</div>
+                  </div>
+                </div>
+              </div>
+              <div class="side">
+                <div class="ui card">
+                  <div class="content">
+                    <a class="header">Mashmoosh</a>
+                  </div>
+                  <div class="content">
+                    <div class="meta">
+                      <div class="Age">Age: 17</div>
+                    </div>
+                    <div class="description">
+                      Mashmoosh is a Computer Science student studying at SLU. He loves to play soccor and enjoys cooking ethnic food.
+                    </div>
+                  </div>
+                  <div class="content">
+                    <div class="extra content">
+                      <span>
+                        <i class="user icon"></i>
+                        22 Friends
+                      </span>
+                      <span class="right floated">
+                        Joined in 2013
+                      </span>
+
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-    </div>
+      </div>
   </div>
   <!-- End background and profile image -->
   <!--  Pointing menu with about, timeline, freinds and photos-->
@@ -333,3 +372,4 @@
   <!-- End photos segment -->
 </div>
   <!-- End pointing menu -->
+<% end %>
