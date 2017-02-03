@@ -9,11 +9,9 @@
             <button class="ui teal button">Add new post</button>
           <% end %>
         <% end %>
-        <% likes_number = 0 %>
         <% i = 0 %>
         <% @posts.each do |post| %>
-          <% likes_number += 1 %>
-          <%= render :partial => post,  locals: { post: post, poster: @names[i], likes_number: likes_number }  %>
+          <%= render :partial => post,  locals: { post: post, poster: @names[i]}  %>
           <% i += 1 %>
           <div class="ui divider"></div>
         <% end %>

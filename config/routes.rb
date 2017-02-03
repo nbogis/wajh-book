@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resource :profile, only: [:edit, :update, :show]
   end
 
+  resources :likes, only: [:destroy]
+  
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new"
     get "log_in", to: "devise/sessions#new"
