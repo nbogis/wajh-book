@@ -1,4 +1,4 @@
-<% if current_page?(post_path(post)) %>
+<% if current_page?(post_path(post)) or (params[:controller] == 'comments' and params[:action] =='edit' ) %>
   <% on_show_page = true %>
 <% else %>
   <% on_show_page = false %>
@@ -52,14 +52,16 @@
 
       <% if on_show_page %>
       <!-- show edit and delete only if I'm in the show page cuz this partial is rendered in index as well -->
-        <div class="ui buttons">
-          <%= link_to "Edit", edit_post_path(post), class: "ui teal button" %>
-          <div class="or"></div>
-          <%= link_to "Delete", post_path(post),
-                                method: :delete,
-                                data: { confirm: "Are you sure you want to delete your post?"},
-                                class: "ui red button" %>
-        </div>
+        <% if post.authors == current_user %>
+          <div class="ui mini buttons">
+            <%= link_to "Edit", edit_post_path(post), class: "ui teal button" %>
+            <div class="or"></div>
+            <%= link_to "Delete", post_path(post),
+                                  method: :delete,
+                                  data: { confirm: "Are you sure you want to delete your post?"},
+                                  class: "ui red button" %>
+          </div>
+        <% end %>
 
         <!-- Show the comments -->
         <% if post.comments.count > 0 %>
@@ -71,7 +73,7 @@
           <% end %>
         <% end %>
         <!-- if in index page -->
-      <% else %>
+      <% else%>
         <% if post.comments.count > 0 %>
           <% comment = post.comments.first %>
           <div class="ui comments">

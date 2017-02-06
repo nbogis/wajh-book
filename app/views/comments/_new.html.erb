@@ -4,6 +4,12 @@
           <%= f.text_area :body,
                           :placeholder => "Your comment goes here" %>
     </div>
-    <%= f.submit "Comment", class: "ui fluid large teal submit button" %>
+    <div class="ui fluid buttons">
+      <%= f.submit "Comment", class: "ui teal button" %>
+      <div class="or"></div>
+      <%= link_to "Cancel", post_path(post),
+                              data: { confirm: "Are you sure you want to cancel this action"},
+                              class: "ui red button" %>
+    </div>
   </div>
 <% end %>
