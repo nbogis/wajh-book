@@ -15,7 +15,7 @@
       <%= f.text_field :current_place %>
     </div>
     <div class="field">
-      <%= f.label "Collede"%>
+      <%= f.label "College"%>
       <%= f.text_field :college %>
     </div>
     <div class="field">
@@ -30,8 +30,8 @@
       <%= f.label "Marital status?"%>
       <%=  f.select(
         :relationship,
-        ['married', 'single', 'divorsed', 'widow'],
-        { include_blank: true }
+        ['Married', 'Single', 'Divorsed', 'Widow'],
+        { include_blank: 'choose your status ...' }
       ) %>
     </div>
     <div class="field">

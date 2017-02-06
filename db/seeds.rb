@@ -29,18 +29,19 @@ puts "create users"
                :email => Faker::Internet.email,
                :username => Faker::Internet.user_name,
                :password => password,
-               :password_confirmation => password)
+               :password_confirmation => password,
+               :profile_pic => "/img/elliot.jpg")
 
-  user.profile.update_attributes( :home_place => "Saudi",
-                                  :current_place => "US",
-                                  :college => "SLU",
-                                  :high_school => "Madrid",
-                                  :about_me => "like to connect with people",
+  user.profile.update_attributes( :home_place => Faker::Address.country,
+                                  :current_place => Faker::Address.country,
+                                  :college => Faker::University.name,
+                                  :high_school => Faker::Educator.secondary_school,
+                                  :about_me => Faker::Lorem.sentence,
                                   :interests => "sports",
-                                  :relationship => "Single",
-                                  :work => "Great company",
+                                  :relationship => "Signle",
+                                  :work => Faker::Company.name,
                                   :languages => "Arabic, English",
-                                  :phone => "253-562-4850",
+                                  :phone => Faker::PhoneNumber.cell_phone,
                                   :dob => 2/4/1990)
   user.save!
 end

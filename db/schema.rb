@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20170201161039) do
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.date     "dob"
-    t.integer  "profile_pic"
+    t.string   "profile_pic"
     t.integer  "cover_pic"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"

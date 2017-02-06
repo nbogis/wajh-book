@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   include ProfilesHelper
 
-  before_action :require_login, except: [:show]
+  before_action :require_login
 
   def show
     @user = User.find(params[:user_id])
@@ -22,9 +22,10 @@ class ProfilesController < ApplicationController
     @profile = @user.profile
 
     if @profile.update_attributes(whitelisted_profile_params)
-      flash[:success] = "You successfully updated your post"
+      flash[:success] = "You successfully updated your profile"
       redirect_to user_profile_path(@user)
     else
+      flash[:error] = "Sorry couldn't update your profile"
       render :edit
     end
   end

@@ -11,7 +11,7 @@
         <% end %>
         <% i = 0 %>
         <% @posts.each do |post| %>
-          <%= render :partial => post,  locals: { post: post, poster: @names[i]}  %>
+          <%= render :partial => post,  locals: { post: post, poster: @posters[i]}  %>
           <% i += 1 %>
           <div class="ui divider"></div>
         <% end %>

@@ -3,9 +3,9 @@ class PostsController < ApplicationController
   before_action :require_login, except: [:index, :show]
   def index
     @posts = Post.order(created_at: :desc)
-    @names = []
+    @posters = []
     @posts.each do |post|
-      @names.push(post.authors.last.username)
+      @posters.push(post.authors.last)
     end
   end
 
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @poster = @post.authors.last.username
+    @poster = @post.authors.last
 
     @comments = @post.comments.all
 

@@ -8,7 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.date :dob
-      t.integer :profile_pic
+      t.string :profile_pic
       t.integer :cover_pic
 
       ## Recoverable
