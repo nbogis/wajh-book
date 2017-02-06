@@ -1,7 +1,7 @@
 class Comment < ApplicationRecord
   validates :body, length: {maximum: 500}, presence: true
 
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
   validates :user, presence: true
 
   belongs_to :commentable, polymorphic: true

@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
     @comment.commentable_id = params[type_id]
 
 
-    @comment.user_id = current_user.id 
+    @comment.user_id = current_user.id
 
     if @comment.save!
       flash[:success] = "You have successfully posted a comment"
@@ -20,9 +20,40 @@ class CommentsController < ApplicationController
     redirect_to post_path(@comment.commentable_id)
   end
 
+  def edit
+    @comment = Comment.find(params[:id])
+    @post = Post.find(@comment.commentable_id)
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    @post = Post.find(@comment.commentable_id)
+
+    if @comment.update_attributes(whitelisted_comment_params)
+      flash[:success] = "You successfully updated your comment"
+      redirect_to @post
+    else
+      flash[:error] = "Sorry we couldn't edit your comment"
+      render :edit
+    end
+  end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+
+    @post = Post.find(@comment.commentable_id)
+
+    if @comment.destroy
+      flash[:success] = "You successfully deleted your comment"
+    else
+      flash[:error] = "Sorry we couldn't delete your comment"
+    end
+      redirect_to @post
+  end
+
   private
   def whitelisted_comment_params
-    params.require(:comment).permit(:body,:user_id)
+    params.require(:comment).permit(:body)
   end
 
 

@@ -13,18 +13,19 @@ class LikesController < ApplicationController
     end
 
     if @liked_record.likes.create(:user_id => current_user.id)
-      flash[:success] = "You like a #{type.downcase}"
+      flash[:success] = "You liked a #{type.downcase}"
     else
-      flash[:error] = "Sorry you couldn't like a #{type.downcase}"
+      flash[:error] = "Sorry you couldn't process your like"
     end
     redirect_to :back
   end
 
   def destroy
+    type = params[:likeable]
     @like = Like.find(params[:id])
 
     if @like.destroy
-      flash[:success] = "You disliked the post"
+      flash[:success] = "You unliked a #{type.downcase}"
     else
       flash[:success] = "Sorry we couldn't process your dislike"
     end

@@ -20,7 +20,7 @@
     <div class="extra content">
       <%= post.body %>
       <div class="date">
-        4 days ago
+        <%= time_ago_in_words(post.created_at) %> ago
       </div>
       <div class="meta">
         <div class="likes" data-content="<% if post.likes.count > 0 %>
