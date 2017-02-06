@@ -3,27 +3,31 @@
   <%= form_for [@user, @profile], :html => { class: "ui large form" } do |f| %>
   <div class="ui feed tall stacked segment">
     <div class="field">
-      <%= f.label "Where are you from?" %>
+      <%= f.label "Birthday" %>
+      <%= f.date_field :dob %>
+    </div>
+    <div class="field">
+      <%= f.label "Hometown" %>
       <%= f.text_field :home_place %>
     </div>
     <div class="field">
-      <%= f.label "Where do you currently live?"%>
+      <%= f.label "Current home"%>
       <%= f.text_field :current_place %>
     </div>
     <div class="field">
-      <%= f.label "Which college did/do you go to?"%>
+      <%= f.label "Collede"%>
       <%= f.text_field :college %>
     </div>
     <div class="field">
-      <%= f.label "Which high school did/do you go to?"%>
+      <%= f.label "High school"%>
       <%= f.text_field :high_school %>
     </div>
     <div class="field">
-      <%= f.label "Tell me more about yourself?"%>
+      <%= f.label "About me"%>
       <%= f.text_area :about_me %>
     </div>
     <div class="field">
-      <%= f.label "What is your marital status?"%>
+      <%= f.label "Marital status?"%>
       <%=  f.select(
         :relationship,
         ['married', 'single', 'divorsed', 'widow'],
@@ -31,15 +35,15 @@
       ) %>
     </div>
     <div class="field">
-      <%= f.label "Where do you work?"%>
+      <%= f.label "Work"%>
       <%= f.text_field :work %>
     </div>
     <div class="field">
-      <%= f.label "What are the languages that you speak?"%>
+      <%= f.label "Languages"%>
       <%= f.text_field :languages %>
     </div>
     <div class="field">
-      <%= f.label "What is your phone number?"%>
+      <%= f.label "Phone number"%>
       <%= f.text_field :phone %>
     </div>
     <%= f.submit "Update Profile", class: "ui fluid large teal submit button" %>

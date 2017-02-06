@@ -25,11 +25,23 @@ Posting.destroy_all
 puts "create users"
 10.times do |i|
   password = Faker::Internet.password(5, 15)
-  user = User.new(:id => i,
+  user = User.create!(:id => i,
                :email => Faker::Internet.email,
                :username => Faker::Internet.user_name,
                :password => password,
                :password_confirmation => password)
+
+  user.profile.update_attributes( :home_place => "Saudi",
+                                  :current_place => "US",
+                                  :college => "SLU",
+                                  :high_school => "Madrid",
+                                  :about_me => "liket to connect with people",
+                                  :interests => "sports",
+                                  :relationship => "Single",
+                                  :work => "Great company",
+                                  :languages => "Arabic, English",
+                                  :phone => "253-562-4850",
+                                  :dob => 2/4/1990)
   user.save!
 end
 

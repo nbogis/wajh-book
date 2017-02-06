@@ -1,9 +1,15 @@
 class ProfilesController < ApplicationController
+  include ProfilesHelper
+
   before_action :require_login, except: [:show]
 
   def show
     @user = User.find(params[:user_id])
     @profile = @user.profile
+
+    if @profile.dob
+      @age = age(@profile.dob)
+    end
   end
 
   def edit
@@ -26,6 +32,6 @@ class ProfilesController < ApplicationController
   private
   def whitelisted_profile_params
     params.require(:profile).permit(:home_place, :current_place, :college, :high_school, :about_me,
-                          :interests, :relationship, :work, :languages, :phone)
+                          :interests, :relationship, :work, :languages, :phone, :dob)
   end
 end

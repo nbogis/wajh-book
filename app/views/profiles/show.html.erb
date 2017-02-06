@@ -50,21 +50,25 @@
                     <img src="/img/profile.jpg">
                   </div>
                   <div class="content">
-                    <div class="header">Mashmoosh</div>
+                    <div class="header"><%= @user.username %></div>
                   </div>
                 </div>
               </div>
               <div class="side">
                 <div class="ui card">
                   <div class="content">
-                    <a class="header">Mashmoosh</a>
+                    <a class="header"><%= @user.username %></a>
                   </div>
                   <div class="content">
                     <div class="meta">
-                      <div class="Age">Age: 17</div>
+                      <div class="Age">Age: <% if @age %>
+                      <%= @age %>
+                      <% end %>
                     </div>
                     <div class="description">
-                      Mashmoosh is a Computer Science student studying at SLU. He loves to play soccor and enjoys cooking ethnic food.
+                      <% if @profile.about_me %>
+                        <%= @profile.about_me %>
+                      <% end %>
                     </div>
                   </div>
                   <div class="content">
@@ -74,7 +78,7 @@
                         22 Friends
                       </span>
                       <span class="right floated">
-                        Joined in 2013
+                        Joined in <%= @user.created_at.year %>
                       </span>
 
                     </div>
@@ -125,34 +129,59 @@
       </div>
       <div class="twelve wide stretched column">
           <div class="ui attached tab segment active" data-tab="overview">
-            Studied Computer Engineering at <a>SLU</a>
+            <% if @profile.home_place %>
+              I'm from <%= link_to @profile.home_place, '#' %>.
+            <% end %>
+            <% if @profile.current_place %>
+              I live in <%= link_to @profile.current_place, '#' %>.
+            <% end %>
             <div class="ui divider"></div>
-            Lived in <a>St. Louis, MO</a>
-            From <a>Madrid, Spain</a>
+            <% if @profile.work %>
+              I work at <%= link_to @profile.work, '#' %>.
+            <% end %>
+            <% if @profile.college %>
+              I go to <%= link_to @profile.college, '#' %>.
+            <% end %>
             <div class="ui divider"></div>
-            Married to <a>Tami</a> since December 21, 2014
+            <% if @profile.relationship %>
+              I am <%= @profile.relationship %>.
+            <% end %>
           </div>
           <div class="ui attached tab segment" data-tab="work-and-education">
             <h3>Work</h3>
-            <a>Mahmoosh industry</a>
+            <% if @profile.work %>
+              <%= link_to @profile.work, '#' %>
+            <% end %>
             <div class="ui divider"></div>
             <h3>College</h3>
-            <a>Saint Louis University</a>
+            <% if @profile.college %>
+              <%= link_to @profile.college, '#' %>
+            <% end %>
             <div class="ui divider"></div>
             <h3>High School</h3>
-            <a>Saint Louis High School</a>
+            <% if @profile.college %>
+              <%= link_to @profile.high_school, '#' %>
+            <% end %>
           </div>
           <div class="ui attached tab segment" data-tab="places-lived">
-            <h3>Current City</h3>
-            <a>St. Louis</a>
+            <h3>Current Home</h3>
+            <% if @profile.current_place %>
+              <%= link_to @profile.current_place, '#' %>
+            <% end %>
             <div class="ui divider"></div>
             <h3>Hometown</h3>
-            <a>Madrid, Spain</a>
+            <% if @profile.home_place %>
+              <%= link_to @profile.home_place, '#' %>
+            <% end %>
           </div>
           <div class="ui attached tab segment" data-tab="family-and-relationships">
             <h3>Relationship</h3>
-            <a>Tami</a>
-            <p>Married since December 21,2014</p>
+            <% if @profile.relationship %>
+              <%= @profile.relationship %>
+              <% if @profile.relationship == "Married" %>
+               to <a>Tami</a> since December 21,2016.
+               <% end %>
+            <% end %>
             <div class="ui divider"></div>
             <h3>Family Members</h3>
             <a>Tuffaha</a><p>sister</p>
@@ -170,6 +199,7 @@
   <!-- Timeline segment-->
   <div class="ui bottom attached tab segment active" data-tab="timeline">
       <div class="ui feed">
+        <% @user.text_posts.order(created_at: :desc).each do |post|%>
         <div class="event">
           <div class="label">
             <img src="img/profile.jpg">
@@ -177,107 +207,23 @@
           <div class="content">
             <div class="summary">
               <a class="user">
-                Mashmoosh
-              </a> changed his profile picture
-              <div class="date">
-                1 Hour Ago
-              </div>
+                <%= @user.username %>
+              </a>
+            </div>
+            <div class="extra content">
+              <%= post.body %>
             </div>
             <div class="meta">
+              <div class="date">
+                <%= time_ago_in_words(post.created_at) %> ago
+              </div>
               <a class="like">
-                <i class="like icon"></i> 4 Likes
+                <i class="like icon"></i> <%= post.likes.count %>
               </a>
             </div>
           </div>
         </div>
-        <div class="event">
-          <div class="label">
-            <img src="img/profile.jpg">
-          </div>
-          <div class="content">
-            <div class="summary">
-              <a>Mahsmoosh</a> added <a>2 new photos</a>
-              <div class="date">
-                4 days ago
-              </div>
-            </div>
-            <div class="extra images">
-              <a><img src="img/background.jpg"></a>
-              <a><img src="img/background.jpg"></a>
-            </div>
-            <div class="meta">
-              <a class="like">
-                <i class="like icon"></i> 11 Like
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="event">
-          <div class="label">
-            <img src="img/profile.jpg">
-          </div>
-          <div class="content">
-            <div class="summary">
-              <a class="user">
-                Mahsmoosh
-              </a> posted ob his page
-              <div class="date">
-                2 Days Ago
-              </div>
-            </div>
-            <div class="extra text">
-              Played good game last night.
-            </div>
-            <div class="meta">
-              <a class="like">
-                <i class="like icon"></i> 8 Likes
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="event">
-          <div class="label">
-            <img src="img/profile.jpg">
-          </div>
-          <div class="content">
-            <div class="summary">
-              <a>Joe Henderson</a> posted on his page
-              <div class="date">
-                3 days ago
-              </div>
-            </div>
-            <div class="extra text">
-              Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again. Even if we don't run extra laps that day, we surely will come back for more of the same another day soon.
-            </div>
-            <div class="meta">
-              <a class="like">
-                <i class="like icon"></i> 5 Likes
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="event">
-          <div class="label">
-            <img src="img/profile.jpg">
-          </div>
-          <div class="content">
-            <div class="summary">
-              <a>Mashmoosh</a> added <a>2 new photos</a>
-              <div class="date">
-                4 days ago
-              </div>
-            </div>
-            <div class="extra images">
-              <a><img src="img/background.jpg"></a>
-              <a><img src="img/background.jpg"></a>
-            </div>
-            <div class="meta">
-              <a class="like">
-                <i class="like icon"></i> 41 Likes
-              </a>
-            </div>
-          </div>
-        </div>
+        <% end %>
       </div>
     </div>
   <!-- End timeline segment -->

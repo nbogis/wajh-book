@@ -12,6 +12,7 @@ class CreateProfiles < ActiveRecord::Migration[5.0]
       t.string :work
       t.string :languages
       t.string :phone
+      t.date :dob
 
       t.timestamps
     end
