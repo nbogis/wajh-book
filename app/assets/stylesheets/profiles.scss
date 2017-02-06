@@ -5,6 +5,7 @@
 .img-container {
   height: 50vh;
   padding: 0 3vw;
+  margin-top: 10%;
 
   .background-img {
     height: 100% !important;
@@ -14,18 +15,13 @@
 
   .shape {
     position: absolute !important;
-    bottom: 45%;
+    top: 30%;
     left: 5%;
     max-width: 35%;
     min-width: 30%;
     max-height: 30%;
     min-height: 30%;
   }
-
-  // .animating {
-  //   max-width: 30% !important;
-  //   height: 30%;
-  // }
 }
 
 .requested-freinds {

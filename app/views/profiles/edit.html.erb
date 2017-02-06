@@ -1,0 +1,52 @@
+<%= render "shared/navbar" %>
+<div class="ui container">
+  <%= form_for [@user, @profile], :html => { class: "ui large form" } do |f| %>
+  <div class="ui feed tall stacked segment">
+    <div class="field">
+      <%= f.label "Birthday" %>
+      <%= f.date_field :dob %>
+    </div>
+    <div class="field">
+      <%= f.label "Hometown" %>
+      <%= f.text_field :home_place %>
+    </div>
+    <div class="field">
+      <%= f.label "Current home"%>
+      <%= f.text_field :current_place %>
+    </div>
+    <div class="field">
+      <%= f.label "College"%>
+      <%= f.text_field :college %>
+    </div>
+    <div class="field">
+      <%= f.label "High school"%>
+      <%= f.text_field :high_school %>
+    </div>
+    <div class="field">
+      <%= f.label "About me"%>
+      <%= f.text_area :about_me %>
+    </div>
+    <div class="field">
+      <%= f.label "Marital status?"%>
+      <%=  f.select(
+        :relationship,
+        ['Married', 'Single', 'Divorsed', 'Widow'],
+        { include_blank: 'choose your status ...' }
+      ) %>
+    </div>
+    <div class="field">
+      <%= f.label "Work"%>
+      <%= f.text_field :work %>
+    </div>
+    <div class="field">
+      <%= f.label "Languages"%>
+      <%= f.text_field :languages %>
+    </div>
+    <div class="field">
+      <%= f.label "Phone number"%>
+      <%= f.text_field :phone %>
+    </div>
+    <%= f.submit "Update Profile", class: "ui fluid large teal submit button" %>
+  </div>
+  <% end %>
+</div>

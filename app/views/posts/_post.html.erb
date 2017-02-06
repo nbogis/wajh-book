@@ -6,12 +6,12 @@
 
 <div class="event">
   <div class="label">
-    <img src="/img/elliot.jpg">
+    <img src="<%= poster.profile_pic %>">
   </div>
   <div class="content">
     <div class="summary">
       <a class="user">
-        <%= poster %>
+        <%= link_to poster.username, user_profile_path(poster.id) %>
         <% unless on_show_page %>
           <%= link_to '<i class="sticky note large teal icon"></i>'.html_safe, post %>
         <% end %>
@@ -66,6 +66,7 @@
           <% post.comments.each do |comment| %>
             <div class="ui comments">
               <%= render :partial => "comments/show",  locals: { comment: comment}  %>
+            </div>
             <div class="ui divider"></div>
           <% end %>
         <% end %>
