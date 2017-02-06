@@ -35,7 +35,7 @@ puts "create users"
                                   :current_place => "US",
                                   :college => "SLU",
                                   :high_school => "Madrid",
-                                  :about_me => "liket to connect with people",
+                                  :about_me => "like to connect with people",
                                   :interests => "sports",
                                   :relationship => "Single",
                                   :work => "Great company",

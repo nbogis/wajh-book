@@ -80,7 +80,6 @@
                       <span class="right floated">
                         Joined in <%= @user.created_at.year %>
                       </span>
-
                     </div>
                   </div>
                 </div>
@@ -113,10 +112,7 @@
     <div class="ui grid">
       <div class="four wide column">
         <div class="ui vertical fluid tabular menu">
-          <a class="active item" data-tab="overview">
-            Overview
-          </a>
-          <a class="item" data-tab="work-and-education">
+          <a class="active item" data-tab="work-and-education">
             Work and Education
           </a>
           <a class="item" data-tab="places-lived">
@@ -125,29 +121,19 @@
           <a class="item" data-tab="family-and-relationships">
             Family and Relationships
           </a>
+          <a class="item" data-tab="hobbies-and-interests">
+            Hobbies and Interests
+          </a>
+          <a class="item" data-tab="languages">
+            Languages
+          </a>
+          <a class="item" data-tab="contact-info">
+            Contact Info
+          </a>
         </div>
       </div>
       <div class="twelve wide stretched column">
-          <div class="ui attached tab segment active" data-tab="overview">
-            <% if @profile.home_place %>
-              I'm from <%= link_to @profile.home_place, '#' %>.
-            <% end %>
-            <% if @profile.current_place %>
-              I live in <%= link_to @profile.current_place, '#' %>.
-            <% end %>
-            <div class="ui divider"></div>
-            <% if @profile.work %>
-              I work at <%= link_to @profile.work, '#' %>.
-            <% end %>
-            <% if @profile.college %>
-              I go to <%= link_to @profile.college, '#' %>.
-            <% end %>
-            <div class="ui divider"></div>
-            <% if @profile.relationship %>
-              I am <%= @profile.relationship %>.
-            <% end %>
-          </div>
-          <div class="ui attached tab segment" data-tab="work-and-education">
+          <div class="ui attached tab segment active" data-tab="work-and-education">
             <h3>Work</h3>
             <% if @profile.work %>
               <%= link_to @profile.work, '#' %>
@@ -191,6 +177,22 @@
             <a>Zuzu</a><p>Mother</p>
             <div class="ui divider"></div>
             <a>Fufu</a><p>Father</p>
+          </div>
+          <div class="ui attached tab segment" data-tab="hobbies-and-interests">
+            <h3>Hobbies and interests</h3>
+            <%= @profile.interests %>
+          </div>
+          <div class="ui attached tab segment" data-tab="languages">
+            <h3>Languages</h3>
+            <% if @profile.languages %>
+              <%= @profile.languages %>
+            <% end %>
+          </div>
+          <div class="ui attached tab segment" data-tab="contact-info">
+            <h3>Contact Info</h3>
+            <% if @profile.phone %>
+              Phone number: <%= @profile.phone %>
+            <% end %>
           </div>
       </div>
     </div>
