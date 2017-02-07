@@ -41,13 +41,13 @@
 <!-- background and profile image -->
   <div class="ui img-container">
 
-    <img class="ui background-img fluid image" src="/img/background.jpg"></img>
+    <img class="ui background-img fluid image" src="<%= @profile.cover_pic.url(:medium) %>"></img>
       <div class="ui square shape">
             <div class="sides">
               <div class="side active">
                 <div class="ui card">
                   <div class="image">
-                    <img src="/img/profile.jpg">
+                    <img src="<%= @profile.profile_pic.url %>">
                   </div>
                   <div class="content">
                     <div class="header"><%= @user.username %></div>

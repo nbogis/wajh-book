@@ -4,7 +4,5 @@
 //
 $(document).ready(function(){
   $('.comments').popup();
-  // $('.comments').hover(function() {
-  //   $('.comments').addClass('teal');
-  // });
+
 });

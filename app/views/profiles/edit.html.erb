@@ -1,7 +1,19 @@
 <%= render "shared/navbar" %>
 <div class="ui container">
-  <%= form_for [@user, @profile], :html => { class: "ui large form" } do |f| %>
   <div class="ui feed tall stacked segment">
+  <%= form_for [@user, @profile], :html => { class: "ui large form" } do |f| %>
+  <div class="field">
+    <%= f.label "Profile picture" %>
+    <%= f.file_field :profile_pic %>
+  </div>
+  <div class="field">
+    <%= f.label "Cover picture" %>
+    <%= f.file_field :cover_pic %>
+  </div>
+  <div class="field">
+    <%= f.label "Birthday" %>
+    <%= f.date_field :dob %>
+  </div>
     <div class="field">
       <%= f.label "Birthday" %>
       <%= f.date_field :dob %>

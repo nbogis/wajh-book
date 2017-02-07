@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201161039) do
+ActiveRecord::Schema.define(version: 20170207141032) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
@@ -62,8 +62,16 @@ ActiveRecord::Schema.define(version: 20170201161039) do
     t.string   "languages"
     t.string   "phone"
     t.date     "dob"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "profile_pic_file_name"
+    t.string   "profile_pic_content_type"
+    t.integer  "profile_pic_file_size"
+    t.datetime "profile_pic_updated_at"
+    t.string   "cover_pic_file_name"
+    t.string   "cover_pic_content_type"
+    t.integer  "cover_pic_file_size"
+    t.datetime "cover_pic_updated_at"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
@@ -74,8 +82,6 @@ ActiveRecord::Schema.define(version: 20170201161039) do
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.date     "dob"
-    t.string   "profile_pic"
-    t.integer  "cover_pic"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

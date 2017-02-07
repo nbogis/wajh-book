@@ -38,7 +38,6 @@
             <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, post.id, "Post").last), method: :delete, class: 'like' %>
           <% end %>
         </div>
-
       </div>
       <!-- show number of comments with names in popup -->
       <div class="meta ">
@@ -52,7 +51,7 @@
 
       <% if on_show_page %>
       <!-- show edit and delete only if I'm in the show page cuz this partial is rendered in index as well -->
-        <% if post.authors == current_user %>
+        <% if post.authors.last == current_user %>
           <div class="ui mini buttons">
             <%= link_to "Edit", edit_post_path(post), class: "ui teal button" %>
             <div class="or"></div>
@@ -62,7 +61,7 @@
                                   class: "ui red button" %>
           </div>
         <% end %>
-
+        
         <!-- Show the comments -->
         <% if post.comments.count > 0 %>
           <% post.comments.each do |comment| %>

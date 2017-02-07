@@ -55,4 +55,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # specifiy where the uploaded files get stored 
+  Paperclip.options[:command_path] = "/usr/local/bin"
 end
