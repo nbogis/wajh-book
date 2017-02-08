@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_user!
   def create
     @comment = Comment.new(whitelisted_comment_params)
     # post_id is in params not commentable_id and type. This could be picture_id so we need to do get the type id to get commentable_id

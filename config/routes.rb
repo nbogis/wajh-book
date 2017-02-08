@@ -14,10 +14,13 @@ Rails.application.routes.draw do
 
   resources :users do
     resource :profile, only: [:edit, :update, :show]
+    resources :pictures, except[:edit, :update]
   end
 
   resources :likes, only: [:destroy]
-  
+
+  resources :pictures, only: [:show]
+
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new"
     get "log_in", to: "devise/sessions#new"

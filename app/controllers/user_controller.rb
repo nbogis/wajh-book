@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-  before_action :require_login, except: [:index, :new]
+  before_action :authenticate_user!, except: [:index, :new]
 
   def index
     @users = User.all

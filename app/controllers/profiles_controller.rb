@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
   include ProfilesHelper
 
-  before_action :require_login
+  before_action :authenticate_user!
 
   def show
     @user = User.find(params[:user_id])

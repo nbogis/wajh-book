@@ -2,12 +2,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
-  def require_login
-    unless user_signed_in?
-      flash[:error] = "You need to sign in before accessing WajhBook"
-      redirect_to sign_in_path
-    end
-  end
+  # def require_login
+  #   unless user_signed_in?
+  #     flash[:error] = "You need to sign in before accessing WajhBook"
+  #     redirect_to sign_in_path
+  #   end
+  # end
 
   def user_liked_model(user, liked_id, liked_type)
     Like.where(:user_id => user.id,
