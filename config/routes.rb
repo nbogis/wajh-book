@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :likes, only: [:destroy]
 
-  resources :pictures, only: [:show]
+  # resources :pictures, only: [:show]
 
   devise_scope :user do
     get "sign_in", to: "devise/sessions#new"

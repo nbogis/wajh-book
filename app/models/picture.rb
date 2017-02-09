@@ -1,5 +1,6 @@
 class Picture < ApplicationRecord
-  validates :details, length: {maximum: 700}
+  
+  validates :details, :presence => true, length: {maximum: 700}
 
   has_many :postings, as: :postable, :dependent => :destroy
   has_many :authors, through: :postings, source: :user

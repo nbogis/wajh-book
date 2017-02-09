@@ -14,12 +14,12 @@ class PicturesController < ApplicationController
 
   def create
     if user_signed_in?
-      @user = User.find(params[:user_id])
-      @picture = Picture.create(white_listed_pics_params)
+      @user = current_user
+      @picture = @user.pic_posts.create!(white_listed_pics_param)
 
       if @picture
         flash[:success] = "You successfully uploaded a picture"
-        redirect_to user_pictures(@user)
+        redirect_to root_path
       else
         flash[:error] = "Sorry, we couldn't upload your picture"
         redirect_to :new
@@ -49,7 +49,7 @@ class PicturesController < ApplicationController
 
   private
   def white_listed_pics_param
-    require(:picture).permit(:details, :file)
+    params.require(:picture).permit(:details, :file)
   end
 
 

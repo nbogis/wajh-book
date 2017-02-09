@@ -1,0 +1,34 @@
+<%= render "shared/navbar" %>
+
+<div class="ui middle aligned center aligned grid new_edit_form">
+  <div class="column">
+    <% if @picture.errors.count > 0 %>
+      <ul class="ui error message">
+        <% @picture.errors.full_messages.each do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <h2 class="ui teal header">
+      <div class="content">
+        <!-- check if the post exist meaning we want to edit. if not we want to create new -->
+        Add new picture
+      </div>
+    </h2>
+
+    <!-- <form class="ui large form"> -->
+    <%= form_for [@user, @picture], :html => { class: "ui large form" } do |f| %>
+      <div class="ui feed tall stacked segment">
+        <div class="field">
+          <%= f.label "Picture" %>
+          <%= f.file_field :file %>
+        </div>
+        <div class="field">
+          <%= f.label "Picture details" %>
+          <%= f.text_area :details %>
+        </div>
+        <%= f.submit "Add a picture", class: "ui fluid large teal submit button" %>
+      </div>
+    <% end %>
+  </div>
+</div>

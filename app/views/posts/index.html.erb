@@ -8,6 +8,9 @@
           <%= link_to new_post_path() do %>
             <button class="ui teal button">Add new post</button>
           <% end %>
+          <%= link_to new_user_picture_path(current_user) do %>
+            <button class="ui teal button">Add new picture</button>
+          <% end %>
         <% end %>
         <% i = 0 %>
         <% @posts.each do |post| %>
