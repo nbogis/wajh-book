@@ -12,12 +12,17 @@
             <button class="ui teal button">Add new picture</button>
           <% end %>
         <% end %>
-        <% i = 0 %>
-        <% @posts.each do |post| %>
-          <%= render :partial => post,  locals: { post: post, poster: @posters[i]}  %>
-          <% i += 1 %>
-          <div class="ui divider"></div>
+        <% @postings.each do |posting| %>
+          <% if posting.postable_type == "Post" %>
+            <%= render :partial => "posts/post",  locals: { post: Post.find(posting.postable_id), poster: User.find(posting.user_id)}  %>
+            <div class="ui divider"></div>
+          <% else %>
+            <% poster = User.find(posting.user_id) %>
+            <%= render :partial => "pictures/picture",  locals: { poster: poster, picture: poster.pic_posts.find(posting.postable_id)}  %>
+            <div class="ui divider"></div>
+          <% end %>
         <% end %>
+
       </div>
     </div>
     <%= render partial: "posts/suggest_friends" %>

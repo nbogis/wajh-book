@@ -1,8 +1,9 @@
 class PostsController < ApplicationController
 
   before_action :authenticate_user!
-  
+
   def index
+    @postings = Posting.order(created_at: :desc)
     @posts = Post.order(created_at: :desc)
     @posters = []
     @posts.each do |post|

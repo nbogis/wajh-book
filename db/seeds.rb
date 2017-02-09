@@ -29,8 +29,7 @@ puts "create users"
                :email => Faker::Internet.email,
                :username => Faker::Internet.user_name,
                :password => password,
-               :password_confirmation => password,
-               :profile_pic => "/img/elliot.jpg")
+               :password_confirmation => password)
 
   user.profile.update_attributes( :home_place => Faker::Address.country,
                                   :current_place => Faker::Address.country,
