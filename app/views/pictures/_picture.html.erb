@@ -41,24 +41,22 @@
       </div>
       <!-- show number of comments with names in popup -->
       <div class="meta ">
-        <%= picture.commenters.count %>
-        <i class="comments icon" data-content="
+        <div data-content="<% if picture.comments.count > 0 %>
           Commented by: <% picture.commenters.each do |commenter| %>
           <%= commenter.username %>,
-          <% end %>">
-        </i>
+          <% end %><%end %>">
+        <%= picture.commenters.count %>
+        <%= link_to '<i class="comments icon"></i>'.html_safe, user_picture_path(poster, picture) %>
+        </div>
       </div>
 
       <% if on_show_page %>
       <!-- show edit and delete only if I'm in the show page cuz this partial is rendered in index as well -->
         <% if picture.authors.last == current_user %>
-          <div class="ui mini buttons">
-            <%= link_to "Edit", edit_picture_path(picture), class: "ui teal button" %>
-            <div class="or"></div>
-            <%= link_to "Delete", picture_path(picture),
-                                  method: :delete,
-                                  data: { confirm: "Are you sure you want to delete your picture?"},
-                                  class: "ui red button" %>
+          <%= link_to "Delete", picture_path(picture),
+                                method: :delete,
+                                data: { confirm: "Are you sure you want to delete your picture?"},
+                                class: "ui red button" %>
           </div>
         <% end %>
 
@@ -82,4 +80,6 @@
       <% end %>
     </div>
   </div>
-</div>
+  <% unless on_show_page%>
+    </div>
+  <% end %>

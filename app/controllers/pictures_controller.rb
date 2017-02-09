@@ -14,10 +14,8 @@ class PicturesController < ApplicationController
 
   def create
     if user_signed_in?
-      @user = current_user
-      @picture = @user.pic_posts.create!(white_listed_pics_param)
-
-      if @picture
+      user = current_user
+      if @picture = user.pic_posts.create!(white_listed_pics_param)
         flash[:success] = "You successfully uploaded a picture"
         redirect_to root_path
       else
@@ -30,17 +28,28 @@ class PicturesController < ApplicationController
     end
   end
 
+  def show
+    @picture = Picture.find(params[:id])
+    @poster = @picture.authors.last
+
+    @comments = @picture.comments.all
+
+    @comment = Comment.new
+    @comment.commentable_id = @picture.id
+    @comment.commentable_type = "Picture"
+  end
+
   def destroy
     if user_signed_in?
-      @user = User.find(params[:user_id])
+      @user = current_user
       @picture = Picture.find(params[:id])
 
-      if @picture
+      if @picture.destroy
         flash[:success] = "You successfully deleted your picture"
       else
         flash[:error] = "Sorry, we couldn't delete your picture"
       end
-      redirect_to user_pictures(@user)
+      redirect_to root_path
     else
       flash[:error] = "You need to sign in to delete a picture"
       redirect_to sign_in_path

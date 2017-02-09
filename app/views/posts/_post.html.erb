@@ -4,82 +4,83 @@
   <% on_show_page = true %>
 <% end %>
 
-<div class="event">
-  <div class="label">
-    <img src="<%= poster.profile.profile_pic.url %>">
-  </div>
-  <div class="content">
-    <div class="summary">
-      <a class="user">
-        <%= link_to poster.username, user_profile_path(poster.id) %>
-        <% unless on_show_page %>
-          <%= link_to '<i class="sticky note large teal icon"></i>'.html_safe, post %>
-        <% end %>
-      </a>
+  <div class="event">
+    <div class="label">
+      <img src="<%= poster.profile.profile_pic.url %>">
     </div>
-    <div class="extra content">
-      <%= post.body %>
-      <div class="date">
-        <%= time_ago_in_words(post.created_at) %> ago
+    <div class="content">
+      <div class="summary">
+        <a class="user">
+          <%= link_to poster.username, user_profile_path(poster.id) %>
+          <% unless on_show_page %>
+            <%= link_to '<i class="sticky note large teal icon"></i>'.html_safe, post %>
+          <% end %>
+        </a>
       </div>
-      <div class="meta">
-        <div class="likes" data-content="<% if post.likes.count > 0 %>
-          Liked by:
-          <% post.likers.each do |liker| %>
-            <%= liker.username %>
-          <% end %><%end %>">
-          <%= post.likes.count %>
-          <!-- show like icon when user hasn't liked post -->
-          <% unless post.likers.include? current_user %>
-            <%= link_to '<i class="like icon"></i>'.html_safe,post_likes_path(post), method: :create, class: 'like' %>
-          <% end %>
-          <!-- show unlike icon if user already liked post -->
-          <% if post.likers.include? current_user %>
-            <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, post.id, "Post").last), method: :delete, class: 'like' %>
-          <% end %>
+      <div class="extra content">
+        <%= post.body %>
+        <div class="date">
+          <%= time_ago_in_words(post.created_at) %> ago
         </div>
-      </div>
-      <!-- show number of comments with names in popup -->
-      <div class="meta ">
-        <%= post.commenters.count %>
-        <i class="comments icon" data-content="
-          Commented by: <% post.commenters.each do |commenter| %>
-          <%= commenter.username %>,
-          <% end %>">
-        </i>
-      </div>
-
-      <% if on_show_page %>
-      <!-- show edit and delete only if I'm in the show page cuz this partial is rendered in index as well -->
-        <% if post.authors.last == current_user %>
-          <div class="ui mini buttons">
-            <%= link_to "Edit", edit_post_path(post), class: "ui teal button" %>
-            <div class="or"></div>
-            <%= link_to "Delete", post_path(post),
-                                  method: :delete,
-                                  data: { confirm: "Are you sure you want to delete your post?"},
-                                  class: "ui red button" %>
+        <div class="meta">
+          <div class="likes" data-content="<% if post.likes.count > 0 %>
+            Liked by:
+            <% post.likers.each do |liker| %>
+              <%= liker.username %>
+            <% end %><%end %>">
+            <%= post.likes.count %>
+            <!-- show like icon when user hasn't liked post -->
+            <% unless post.likers.include? current_user %>
+              <%= link_to '<i class="like icon"></i>'.html_safe,post_likes_path(post), method: :create, class: 'like' %>
+            <% end %>
+            <!-- show unlike icon if user already liked post -->
+            <% if post.likers.include? current_user %>
+              <%= link_to '<i class="empty heart icon"></i>'.html_safe,like_path(user_liked_model(current_user, post.id, "Post").last), method: :delete, class: 'like' %>
+            <% end %>
           </div>
-        <% end %>
+        </div>
+        <!-- show number of comments with names in popup -->
+        <div class="meta ">
+          <div data-content="<% if post.comments.count > 0 %>
+            Commented by: <% post.commenters.each do |commenter| %>
+            <%= commenter.username %>,
+            <% end %><%end %>">
+          <%= post.commenters.count %>
+          <%= link_to '<i class="comments icon"></i>'.html_safe, post_path(post) %>
+          </div>
+        </div>
 
-        <!-- Show the comments -->
-        <% if post.comments.count > 0 %>
-          <% post.comments.each do |comment| %>
+        <% if on_show_page %>
+        <!-- show edit and delete only if I'm in the show page cuz this partial is rendered in index as well -->
+          <% if post.authors.last == current_user %>
+            <div class="ui mini buttons">
+              <%= link_to "Edit", edit_post_path(post), class: "ui teal button" %>
+              <div class="or"></div>
+              <%= link_to "Delete", post_path(post),
+                                    method: :delete,
+                                    data: { confirm: "Are you sure you want to delete your post?"},
+                                    class: "ui red button" %>
+            </div>
+          <% end %>
+
+          <!-- Show the comments -->
+          <% if post.comments.count > 0 %>
+            <% post.comments.each do |comment| %>
+              <div class="ui comments">
+                <%= render :partial => "comments/show",  locals: { comment: comment}  %>
+              </div>
+              <div class="ui divider"></div>
+            <% end %>
+          <% end %>
+          <!-- if in index page -->
+        <% else%>
+          <% if post.comments.count > 0 %>
+            <% comment = post.comments.first %>
             <div class="ui comments">
               <%= render :partial => "comments/show",  locals: { comment: comment}  %>
             </div>
-            <div class="ui divider"></div>
           <% end %>
         <% end %>
-        <!-- if in index page -->
-      <% else%>
-        <% if post.comments.count > 0 %>
-          <% comment = post.comments.first %>
-          <div class="ui comments">
-            <%= render :partial => "comments/show",  locals: { comment: comment}  %>
-          </div>
-        <% end %>
-      <% end %>
+      </div>
     </div>
   </div>
-</div>

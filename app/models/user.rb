@@ -10,9 +10,9 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
 
   has_many :postings, dependent: :destroy
+
   has_many :text_posts, through: :postings, source: :postable, source_type: "Post", dependent: :destroy
-  has_many :pic_posts, through: :postings, source: :postable, source_type: "Picture",
-  dependent: :destroy
+  has_many :pic_posts, through: :postings, source: :postable, source_type: "Picture", dependent: :destroy
 
   # comment doesn't need to have a polymorphic source in the user perspective. We would like to see the comments the user made but we don't want to see how many comments on post the user did for example. We would implement the comment like likes if we want it that way
   has_many :comments, dependent: :destroy

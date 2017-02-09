@@ -1,0 +1,15 @@
+<%= form_for [poster, picture, comment], :html => { class: "ui large form" } do |f| %>
+<div class="ui feed tall segment">
+    <div class="field">
+          <%= f.text_area :body,
+                          :placeholder => "Your comment goes here" %>
+    </div>
+    <div class="ui fluid buttons">
+      <%= f.submit "Comment", class: "ui teal button" %>
+      <div class="or"></div>
+      <%= link_to "Cancel", user_picture_path(poster,picture),
+                              data: { confirm: "Are you sure you want to cancel this action"},
+                              class: "ui red button" %>
+    </div>
+  </div>
+<% end %>

@@ -10,9 +10,15 @@
     </h2>
     <div class="ui feed tall stacked segment">
       <!-- Show the post -->
-      <%= render :partial => "posts/post",  locals: { post: @post, poster:  @post.authors.last }  %>
-      <!-- Show add new comment form -->
-      <%= render :partial => "comments/new",  locals: { post: @post, comment: @comment }  %>
+      <% if @post %>
+        <%= render :partial => "posts/post",  locals: { post: @post, poster:  @post.authors.last }  %>
+        <!-- Show add new comment form -->
+        <%= render :partial => "comments/post_new",  locals: { post: @post, comment: @comment }  %>
+      <% else %>
+        <%= render :partial => "pictures/picture",  locals: { picture: @picture, poster: @picture.authors.last }  %>
+        <!-- Show add new comment form -->
+        <%= render :partial => "comments/picture_new",  locals: { poster: @picture.authors.last, picture: @picture, comment: @comment }  %>
+      <% end %>
     </div>
   </div>
 </div>

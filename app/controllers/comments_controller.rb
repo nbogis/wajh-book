@@ -16,22 +16,43 @@ class CommentsController < ApplicationController
     else
       flash[:error] = "Sorry, something went wrong while posting your comment"
     end
-
-    redirect_to post_path(@comment.commentable_id)
+    if @comment.commentable_type == "Post"
+      redirect_to post_path(@comment.commentable_id)
+    else
+      user = Picture.find(@comment.commentable_id).authors
+      redirect_to user_picture_path(user,@comment.commentable_id)
+    end
   end
 
   def edit
     @comment = Comment.find(params[:id])
-    @post = Post.find(@comment.commentable_id)
+    type = @comment.commentable_type
+
+    if type == "Post"
+      @post = Post.find(@comment.commentable_id)
+      @poster = @post.authors.last
+    else
+      @picture = Picture.find(@comment.commentable_id)
+    end
   end
 
   def update
     @comment = Comment.find(params[:id])
-    @post = Post.find(@comment.commentable_id)
+    type = params[:commentable]
+
+    if type == "Post"
+      @post = Post.find(@comment.commentable_id)
+    else
+      @picture = Picture.find(@comment.commentable_id)
+    end
 
     if @comment.update_attributes(whitelisted_comment_params)
       flash[:success] = "You successfully updated your comment"
-      redirect_to @post
+      if type == "Post"
+        redirect_to @post
+      else
+        redirect_to user_picture_path(@picture.authors, @picture)
+      end
     else
       flash[:error] = "Sorry we couldn't edit your comment"
       render :edit
@@ -41,14 +62,24 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
 
-    @post = Post.find(@comment.commentable_id)
+    type = params[:commentable]
+
+    if type == "Post"
+      @post = Post.find(@comment.commentable_id)
+    else
+      @picture = Picture.find(@comment.commentable_id)
+    end
 
     if @comment.destroy
       flash[:success] = "You successfully deleted your comment"
     else
       flash[:error] = "Sorry we couldn't delete your comment"
     end
+    if type == "Post"
       redirect_to @post
+    else
+      redirect_to user_picture_path(@picture.authors, @picture)
+    end
   end
 
   private

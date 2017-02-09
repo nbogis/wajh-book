@@ -10,6 +10,8 @@ class LikesController < ApplicationController
       @liked_record = Post.find(params[type_id])
     elsif type == "Comment"
       @liked_record = Comment.find(params[type_id])
+    elsif type == "Picture"
+      @liked_record = Picture.find(params[type_id])
     end
 
     if @liked_record.likes.create(:user_id => current_user.id)
@@ -21,8 +23,9 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    type = params[:likeable]
     @like = Like.find(params[:id])
+    type = @like.likeable_type
+
 
     if @like.destroy
       flash[:success] = "You unliked a #{type.downcase}"
