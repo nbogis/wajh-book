@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resource :profile, only: [:edit, :update, :show]
-    resources :pictures, except[:edit, :update]
+    resources :pictures, except: [:edit, :update]
   end
 
   resources :likes, only: [:destroy]

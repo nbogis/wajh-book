@@ -1,6 +1,25 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # Paperclip.options[:command_path] = "/usr/local/bin"
+
+  # setup s3 as storage
+  config.paperclip_defaults = {
+
+    # Don't forget to make S3 your storage option!
+    :storage => :s3,
+    :s3_region => Rails.application.secrets.REGION,
+
+    :s3_credentials => {
+
+      :url => Rails.application.secrets.HOST_NAME,
+
+      :bucket => Rails.application.secrets.S3_BUCKET_NAME,
+      :access_key_id => Rails.application.secrets.AWS_ACCESS_KEY_ID,
+      :secret_access_key => Rails.application.secrets.AWS_SECRET_ACCESS_KEY
+    },
+  }
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -55,6 +74,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  # specifiy where the uploaded files get stored 
-  Paperclip.options[:command_path] = "/usr/local/bin"
+  # # specifiy where the uploaded files get stored
+
 end

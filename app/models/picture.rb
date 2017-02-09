@@ -11,5 +11,5 @@ class Picture < ApplicationRecord
   has_many :likers, through: :likes, source: :user
 
   has_attached_file :file, :styles => {:large => "600x600", :medium => "300x300", :thumb => "100x100"}
-  validates_attachment_content_type :cover_pic, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_content_type :file, :content_type => /\Aimage\/.*\Z/
 end

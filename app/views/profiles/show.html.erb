@@ -307,14 +307,7 @@
   <!-- Photos segment -->
   <div class="ui bottom attached tab segment" data-tab="photos">
     <div class="ui medium images">
-      <img src="img/profile.jpg">
-      <img src="img/profile.jpg">
-      <img src="img/profile.jpg">
-      <img src="img/profile.jpg">
-      <img src="img/profile.jpg">
-      <img src="img/profile.jpg">
-      <img src="img/profile.jpg">
-      <img src="img/profile.jpg">
+      <%= render :partial => "pictures/index", :locals => {user: @user, pictures: @user.pic_posts.order(created_at: :desc)} %>
     </div>
   </div>
   <!-- End photos segment -->

@@ -6,7 +6,7 @@
 
 <div class="event">
   <div class="label">
-    <img src="<%= poster.profile_pic %>">
+    <img src="<%= poster.profile.profile_pic.url %>">
   </div>
   <div class="content">
     <div class="summary">
@@ -61,7 +61,7 @@
                                   class: "ui red button" %>
           </div>
         <% end %>
-        
+
         <!-- Show the comments -->
         <% if post.comments.count > 0 %>
           <% post.comments.each do |comment| %>
