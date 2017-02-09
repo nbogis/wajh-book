@@ -88,7 +88,7 @@
       </div>
   </div>
   <!-- End background and profile image -->
-  <!--  Pointing menu with about, timeline, freinds and photos-->
+  <!--  Pointing menu with about, timeline, freinds and pictures-->
   <div class="ui pointing menu">
     <div class="ui container">
       <a class="active item" data-tab="timeline">
@@ -100,8 +100,8 @@
       <a class="item" data-tab="friends">
         Friends
       </a>
-      <a class="item" data-tab="photos">
-        Photos
+      <a class="item" data-tab="pictures">
+        Pictures
       </a>
     </div>
   </div>
@@ -304,13 +304,17 @@
     </div>
   </div>
   <!-- End friends segment -->
-  <!-- Photos segment -->
-  <div class="ui bottom attached tab segment" data-tab="photos">
+  <!-- pictures segment -->
+  <div class="ui bottom attached tab segment" data-tab="pictures">
     <div class="ui medium images">
-      <%= render :partial => "pictures/index", :locals => {user: @user, pictures: @user.pic_posts.order(created_at: :desc)} %>
+      <% if @user.pic_posts.count > 0 %>
+        <%= render :partial => "pictures/index", :locals => {user: @user, pictures: @user.pic_posts.order(created_at: :desc)} %>
+        <% else %>
+          <p>No pictures uploaded by <%= @user.username %></p>
+        <% end %>
     </div>
   </div>
-  <!-- End photos segment -->
+  <!-- End pictures segment -->
 </div>
   <!-- End pointing menu -->
 <% end %>

@@ -41,12 +41,12 @@
         </div>
         <!-- show number of comments with names in popup -->
         <div class="meta ">
-          <div data-content="<% if post.comments.count > 0 %>
+          <div class="likes" data-content="<% if post.commenters.count > 0 %>
             Commented by: <% post.commenters.each do |commenter| %>
             <%= commenter.username %>,
             <% end %><%end %>">
-          <%= post.commenters.count %>
-          <%= link_to '<i class="comments icon"></i>'.html_safe, post_path(post) %>
+            <%= post.commenters.count %>
+            <%= link_to '<i class="comments icon"></i>'.html_safe, post_path(post) %>
           </div>
         </div>
 

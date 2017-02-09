@@ -3,7 +3,8 @@
 <div class="ui container">
   <div class="ui grid">
     <div class="twelve wide column">
-      <div class="ui feed piled segment">
+      <div class="ui feed stacked segment">
+        <!-- add post and picture buttons -->
         <% if user_signed_in? %>
           <%= link_to new_post_path() do %>
             <button class="ui teal button">Add new post</button>
@@ -12,6 +13,8 @@
             <button class="ui teal button">Add new picture</button>
           <% end %>
         <% end %>
+        <!-- End post and picture post buttons -->
+        <!-- display posts and pictures with comments and likes -->
         <% @postings.each do |posting| %>
           <% if posting.postable_type == "Post" %>
             <%= render :partial => "posts/post",  locals: { post: Post.find(posting.postable_id), poster: User.find(posting.user_id)}  %>
@@ -22,9 +25,10 @@
             <div class="ui divider"></div>
           <% end %>
         <% end %>
-
+        <!-- End display posts and picture -->
       </div>
     </div>
+    <!-- display friends suggestions -->
     <%= render partial: "posts/suggest_friends" %>
   </div>
 </div>
