@@ -19,6 +19,7 @@
     </div>
     <div class="extra content">
       <img src="<%= User.find(poster.id).pic_posts.find(picture.id).file.url %>" class="picture_show">
+      <p><%= picture.details %></p>
       <div class="date">
         <%= time_ago_in_words(picture.created_at) %> ago
       </div>

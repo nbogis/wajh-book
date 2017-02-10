@@ -10,6 +10,7 @@ class ProfilesController < ApplicationController
     if @profile.dob
       @age = age(@profile.dob)
     end
+    @postings = Posting.where(:user_id => @user.id).order(created_at: :desc)
   end
 
   def edit

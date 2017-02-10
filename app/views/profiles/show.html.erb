@@ -199,32 +199,17 @@
   </div>
   <!-- End about segment-->
   <!-- Timeline segment-->
-  <div class="ui bottom attached tab segment active" data-tab="timeline">
+  <div class="ui tab segment active" data-tab="timeline">
       <div class="ui feed">
-        <% @user.text_posts.order(created_at: :desc).each do |post|%>
-        <div class="event">
-          <div class="label">
-            <img src="img/profile.jpg">
-          </div>
-          <div class="content">
-            <div class="summary">
-              <a class="user">
-                <%= @user.username %>
-              </a>
-            </div>
-            <div class="extra content">
-              <%= post.body %>
-            </div>
-            <div class="meta">
-              <div class="date">
-                <%= time_ago_in_words(post.created_at) %> ago
-              </div>
-              <a class="like">
-                <i class="like icon"></i> <%= post.likes.count %>
-              </a>
-            </div>
-          </div>
-        </div>
+        <% @postings.each do |posting| %>
+          <% if posting.postable_type == "Post" %>
+            <%= render :partial => "posts/post",  locals: { post: Post.find(posting.postable_id), poster: User.find(posting.user_id)}  %>
+            <div class="ui divider"></div>
+          <% else %>
+            <% poster = User.find(posting.user_id) %>
+            <%= render :partial => "pictures/picture",  locals: { poster: poster, picture: poster.pic_posts.find(posting.postable_id)}  %>
+            <div class="ui divider"></div>
+          <% end %>
         <% end %>
       </div>
     </div>
