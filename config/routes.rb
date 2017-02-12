@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get "log_in", to: "devise/sessions#new"
     delete "sign_out", to: "devise/sessions#destroy"
     delete "log_out", to: "devise/sessions#destroy"
-
   end
+
+  resources :friendings, :only => [:create, :destroy]
 end

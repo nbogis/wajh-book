@@ -42,16 +42,43 @@
   <div class="ui img-container">
 
     <img class="ui background-img fluid image" src="<%= @profile.cover_pic.url(:medium) %>"></img>
-      <div class="ui square shape">
+      <div class="ui people shape">
             <div class="sides">
               <div class="side active">
-                <div class="ui card">
-                  <div class="image">
-                    <img src="<%= @profile.profile_pic.url %>">
-                  </div>
-                  <div class="content">
-                    <div class="header"><%= @user.username %></div>
-                  </div>
+                <div class="ui special cards">
+                  <div class="ui card">
+                    <!-- the current_user can't add himself as friend -->
+                    <% if same_user?(current_user, @user) %>
+                      <div class="image">
+                        <img src="<%= @profile.profile_pic.url %>">
+                      </div>
+                    <% else %>
+                      <div class="blurring dimmable image">
+                        <div class="ui dimmer">
+                          <div class="content">
+                            <div class="center">
+                              <% if already_friends?(current_user, @user) %>
+                                <%= link_to '<div class="ui inverted button">Unfriend</div>'.html_safe, friending_path(@user.id, :current_user_id => current_user.id), :method => "DELETE" %>
+                              <% else %>
+                                <%= link_to '<div class="ui inverted button">Add Friend</div>'.html_safe, friendings_path(:id => @user.id, :current_user_id => current_user.id),
+                                :method => "POST" %>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                        <img src="<%= @profile.profile_pic.url %>">
+                      </div>
+                      <% end %>
+                      <div class="content">
+                        <a class="header"><%= @user.username %></a>
+                      </div>
+                      <div class="extra content">
+                        <a>
+                          <i class="users icon"></i>
+                          2 Members
+                        </a>
+                      </div>
+                    </div>
                 </div>
               </div>
               <div class="side">
@@ -291,12 +318,15 @@
   <!-- End friends segment -->
   <!-- pictures segment -->
   <div class="ui bottom attached tab segment" data-tab="pictures">
-    <div class="ui medium images">
+    <!-- <div class="ui medium images"> -->
+      <div class="ui three column grid">
+  <!-- <div class="row"> -->
       <% if @user.pic_posts.count > 0 %>
         <%= render :partial => "pictures/index", :locals => {user: @user, pictures: @user.pic_posts.order(created_at: :desc)} %>
         <% else %>
           <p>No pictures uploaded by <%= @user.username %></p>
         <% end %>
+      </div>
     </div>
   </div>
   <!-- End pictures segment -->
