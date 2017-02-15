@@ -28,7 +28,8 @@ class User < ApplicationRecord
   # Setup friending initiated side
   # the friends I initiated friendings from
   has_many  :initiated_friendings, :foreign_key => :friender_id,
-                                   :class_name => "Friending"
+                                   :class_name => "Friending",
+                                   :dependent => :destroy
   # the friends who received the user initiated request
   has_many :friended_users, :through => :initiated_friendings,
                             :source => :friend_recipient
@@ -36,11 +37,16 @@ class User < ApplicationRecord
   # Setup friending receiver side
   # the friends who received the friending request
   has_many :received_friendings, :foreign_key => :friend_id,
-                                 :class_name => "Friending"
+                                 :class_name => "Friending",
+                                 :dependent => :destroy
   # the friend who initiated the received request
   has_many :users_friended_by, :through => :received_friendings,
                                :source => :friend_initiator
 
   after_create :create_profile
+
+  scope :find_friends_with_status, -> (user, status) {
+    User.joins("JOIN Friendings ON users.id = Friendings.friend_id").where("friender_id = ?", user.id).where("status =?",status)
+  }
 
 end

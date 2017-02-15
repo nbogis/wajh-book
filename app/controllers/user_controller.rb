@@ -24,6 +24,17 @@ class UserController < ApplicationController
     end
   end
 
+  def accept_friending
+    @user = User.find(params[:id])
+
+    if Friending.accept_friendship(@user, current_user)
+      flash[:success] = "You are now friend with #{@user.username}"
+    else
+      flash[:error] = "Sorry we couldn't process accepting friendship"
+    end
+    redirect_to user_profile_path(@user)
+  end
+
   private
   def whitelisted_user_params
     require(:user).permit(:first_name, :last_name,:email, :password, :password_confirmation)

@@ -3,7 +3,7 @@ class CreateFriendings < ActiveRecord::Migration[5.0]
     create_table :friendings do |t|
       t.integer :friend_id, :null => false
       t.integer :friender_id, :null => false
-      t.boolean :reject_friendship, :null => false, :default => false
+      t.string :status, :null => false, :default => "pending"
 
       t.timestamps
     end

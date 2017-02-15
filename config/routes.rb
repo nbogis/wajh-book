@@ -18,6 +18,10 @@ Rails.application.routes.draw do
       resources :likes, only: [:create, :destroy], defaults: {:likeable => "Picture"}
       resources :comments, defaults: { commentable: "Picture"}
     end
+
+    member do
+      get "accept_friending"
+    end
   end
 
   resources :likes, only: [:destroy]
