@@ -49,6 +49,14 @@ class User < ApplicationRecord
     User.joins("JOIN Friendings ON users.id = Friendings.friend_id").where("friender_id = ?", user.id).where("status =?",status)
   }
 
+  def self.is_friend?(user_1, user_2)
+    if find_friends_with_status(user_1, "accepted").include?(user_2)
+      true
+    else
+      false
+    end
+  end
+
   def self.can_add_friend?(user_1, user_2)
     if user_1 == user_2
       puts "can't friend yourself"

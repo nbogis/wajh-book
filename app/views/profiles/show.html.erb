@@ -23,11 +23,11 @@
             <div class="sides">
               <div class="side active">
                 <div class="ui special cards">
-                  <div class="ui card">
+                  <div class="ui card small-card">
                     <!-- the current_user can't add himself as friend -->
                     <% if same_user?(current_user, @user) || User.find_friends_with_status(current_user, "rejected").where(:id => @user.id).present? %>
                       <div class="image">
-                        <img src="<%= @profile.profile_pic.url %>">
+                        <img src="<%= @profile.profile_pic.url(:medium) %>">
                       </div>
                     <% else %>
                     <div class="blurring dimmable image">
@@ -66,15 +66,10 @@
                       <div class="content">
                         <a class="header"><%= @user.username %></a>
                       </div>
-                      <div class="extra content">
-                        <a>
-                          <i class="users icon"></i>
-                          <%= @friends.count %> Friends
-                        </a>
-                      </div>
                     </div>
                 </div>
               </div>
+            <% if User.is_friend?(current_user, @user) || same_user?(current_user, @user) %>
               <div class="side">
                 <div class="ui card">
                   <div class="content">
@@ -106,6 +101,7 @@
                 </div>
               </div>
             </div>
+          <% end %>
       </div>
   </div>
   <!-- End background and profile image -->
@@ -128,11 +124,11 @@
   </div>
 
   <div class="ui segment">
-  <%= render :partial => "timeline",  locals: { postings: @postings } %>
+  <%= render :partial => "timeline",  locals: { user: @user, postings: @postings } %>
 
-  <%= render :partial => "about",  locals: { profile: @profile } %>
+  <%= render :partial => "about",  locals: { user: @user, profile: @profile } %>
 
-  <%= render :partial => "friends",  locals: { friends: @friends, pending: @pending_friends, requested: @requested_friends } %>
+  <%= render :partial => "friends",  locals: { user: @user, friends: @friends, pending: @pending_friends, requested: @requested_friends } %>
 
   <%= render :partial => "pictures",  locals: { user: @user } %>
   </div>

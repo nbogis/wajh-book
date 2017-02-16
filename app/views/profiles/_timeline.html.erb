@@ -1,4 +1,5 @@
 <div class="ui tab segment active" data-tab="timeline">
+  <% if User.is_friend?(current_user, user) || same_user?(current_user, @user) %>
     <div class="ui feed">
       <% if postings.count > 0 %>
         <% postings.each do |posting| %>
@@ -15,4 +16,7 @@
         <p>No posts made</p>
       <% end %>
     </div>
-  </div>
+  <% else %>
+    <h4> Sorry you need to be friend with <%= user.username %> to be able to see the timeline.</h>
+  <% end %>
+</div>

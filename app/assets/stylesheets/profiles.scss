@@ -15,12 +15,21 @@
 
   .shape {
     position: absolute !important;
-    top: 30%;
-    left: 5%;
-    max-width: 25%;
-    min-width: 25%;
-    max-height: 30%;
-    min-height: 30%;
+    top: 40%;
+    left: 10%;
+  }
+
+  .small-card {
+    max-width: 70% !important;
+  }
+}
+
+.link.cards {
+  width: 25% !important;
+}
+.pointing {
+  .container {
+    margin-top: 6%;
   }
 }
 
@@ -38,8 +47,3 @@
   max-width: 20%;
   max-height: auto;
  }
-
-.thumb-backgroun {
-  // background-color: #DADADA;
-  // display: inline-block;
-}

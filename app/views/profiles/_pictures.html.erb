@@ -1,12 +1,14 @@
 <div class="ui bottom attached tab segment" data-tab="pictures">
-  <!-- <div class="ui medium images"> -->
+  <% if User.is_friend?(current_user, user) || same_user?(current_user, @user) %>
     <div class="ui three column grid">
-<!-- <div class="row"> -->
     <% if user.pic_posts.count > 0 %>
       <%= render :partial => "pictures/index", :locals => {user: user, pictures: user.pic_posts.order(created_at: :desc)} %>
       <% else %>
         <p>No pictures uploaded by <%= user.username %></p>
       <% end %>
     </div>
-  </div>
+  <% else %>
+    <h4> Sorry you need to be friend with <%= user.username %> to be able to see the pictures.</h>
+  <% end %>
+</div>
 </div>
