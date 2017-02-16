@@ -20,7 +20,10 @@ Rails.application.routes.draw do
     end
 
     member do
-      get "accept_friending"
+      get "accept_friend"
+      get "request_friend"
+      get "delete_friend"
+      get "reject_friend"
     end
   end
 

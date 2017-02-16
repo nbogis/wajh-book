@@ -32,7 +32,7 @@
                           <div class="center">
                             <!-- if users are already friends -->
                           <% if User.find_friends_with_status(current_user, "accepted").where(:id => @user.id).present? %>
-                            <%= link_to '<div class="ui inverted button">Unfriend</div>'.html_safe, friending_path(@user.id, :current_user_id => current_user.id), :method => "DELETE" %>
+                            <%= link_to '<div class="ui inverted button">Unfriend</div>'.html_safe, delete_friend_user_path(@user.id)%>
                             </div>
                           </div>
                         </div>
@@ -44,14 +44,14 @@
                       </div>
                             <!-- if current_user has a pending request from @user -->
                           <% elsif User.find_friends_with_status(current_user, "pending").where(:id => @user.id).present? %>
-                            <%= link_to '<div class="ui inverted button">Accept Friendship</div>'.html_safe, accept_friending_user_path(@user) %>
+                            <%= link_to '<div class="ui inverted button">Accept Friendship</div>'.html_safe, accept_friend_user_path(@user) %>
+                            <%= link_to '<div class="ui inverted button">Reject Friendship</div>'.html_safe, reject_friend_user_path(@user) %>
                           </div>
                         </div>
                       </div>
                             <!-- if not above then users can friend each other -->
                           <% else %>
-                            <%= link_to '<div class="ui inverted button">Add Friend</div>'.html_safe, friendings_path(:id => @user.id, :current_user_id => current_user.id),
-                            :method => "POST" %>
+                            <%= link_to '<div class="ui inverted button">Add Friend</div>'.html_safe, request_friend_user_path(@user.id) %>
                           </div>
                         </div>
                       </div>

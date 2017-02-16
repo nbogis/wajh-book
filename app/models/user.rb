@@ -49,4 +49,65 @@ class User < ApplicationRecord
     User.joins("JOIN Friendings ON users.id = Friendings.friend_id").where("friender_id = ?", user.id).where("status =?",status)
   }
 
+  def self.can_add_friend?(user_1, user_2)
+    if user_1 == user_2
+      puts "can't friend yourself"
+      false
+    elsif user_1.friended_users.include?(user_2) ||  user_2.friended_users.include?(user_1)
+      puts "a friendhsip request already exist"
+      false
+    else
+      puts "you can add your friend"
+      true
+    end
+  end
+
+  def self.request_friend(requester, receiver)
+    if self.can_add_friend?(requester, receiver)
+      # add two records specifying the requested and pending status
+      Friending.create(:friender_id => requester.id,
+                       :friend_id => receiver.id,
+                       :status => "requested")
+      Friending.create(:friender_id => receiver.id,
+                       :friend_id => requester.id,
+                       :status => "pending")
+    end
+  end
+
+  def self.accept_friend(requester, receiver)
+    friendship_record = Friending.get_friendship_record(receiver,requester)
+    if friendship_record.status == "pending"
+      friendship_record.status = "accepted"
+      friendship_record.save!
+
+      # update the friendship from the other side too
+      friendship_record = Friending.get_friendship_record(requester,receiver)
+      friendship_record.status = "accepted"
+      friendship_record.save!
+    end
+  end
+
+  def self.reject_friend(requester, receiver)
+    friendship_record = Friending.get_friendship_record(receiver, requester)
+    puts friendship_record
+    if friendship_record.status == "pending"
+      friendship_record.status = "rejected"
+      friendship_record.save!
+      # reject the opposite record
+      friendship_record = Friending.get_friendship_record(requester, receiver)
+      friendship_record.status = "rejected"
+      friendship_record.save!
+    end
+  end
+
+  def self.delete_friend(requester, receiver)
+    friendship_record = Friending.get_friendship_record(requester, receiver)
+    if friendship_record.status == "accepted"
+      friendship_record.delete()
+
+      friendship_record = Friending.get_friendship_record(receiver, requester)
+      friendship_record.delete()
+    end
+  end
+
 end
