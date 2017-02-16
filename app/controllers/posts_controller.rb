@@ -9,6 +9,17 @@ class PostsController < ApplicationController
     @posts.each do |post|
       @posters.push(post.authors.last)
     end
+
+    @suggested_friends = []
+    users_ids = User.all.pluck(:id).shuffle
+    10.times do |t|
+      user = User.find(users_ids[t])
+      if User.can_add_friend?(current_user, user)
+        @suggested_friends.push(user)
+      end
+    end
+
+    @pending_friends = User.find_friends_with_status(current_user, "pending")
   end
 
   def new

@@ -1,0 +1,18 @@
+<div class="ui tab segment active" data-tab="timeline">
+    <div class="ui feed">
+      <% if postings.count > 0 %>
+        <% postings.each do |posting| %>
+          <% if posting.postable_type == "Post" %>
+            <%= render :partial => "posts/post",  locals: { post: Post.find(posting.postable_id), poster: User.find(posting.user_id)}  %>
+            <div class="ui divider"></div>
+          <% else %>
+            <% poster = User.find(posting.user_id) %>
+            <%= render :partial => "pictures/picture",  locals: { poster: poster, picture: poster.pic_posts.find(posting.postable_id)}  %>
+            <div class="ui divider"></div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p>No posts made</p>
+      <% end %>
+    </div>
+  </div>

@@ -2,12 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.requested-freinds {
-  .card {
-    width: 70% !important;
+.pending-friends {
+  .cards {
+    margin-left: 10% !important;
+    width: 80% !important;
+  }
+}
 
-    .content {
-      font-size: 0.8rem;
+.requested-friends {
+  .special.cards {
+    margin-left: 15% !important;
+
+    .card {
+      width: 70% !important;
     }
   }
 }

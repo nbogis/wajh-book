@@ -1,55 +1,47 @@
 <div class="four wide column">
-  <div class="ui stacked segment center aligned requested-freinds">
-    <h4>Freinds Requests</h4>
-    <div class="ui fluid centered card">
-      <a class="image">
-        <img src="/img/profile.jpg">
-      </a>
-      <div class="content">
-        <a class="header">Daniel Louise</a>
+    <% if pending.count > 0 %>
+    <div class="ui stacked segment center aligned pending-friends">
+      <h4>Pending Friends</h4>
+      <div class="ui cards">
+      <% pending.each do |friend| %>
+      <div class="card">
+        <div class="content">
+          <img class="middle aligned ui image" src="<%= friend.profile.profile_pic.url(:thumb) %>">
+          <div class="description">
+            <h4><%= friend.username %></h4>
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui two small buttons">
+            <%= link_to '<div class="ui basic teal button">Accept</div>'.html_safe, accept_friend_user_path(friend) %>
+            <%= link_to '<div class="ui basic red button">Reject</div>'.html_safe, reject_friend_user_path(friend) %>
+          </div>
+        </div>
       </div>
+      <% end %>
     </div>
-    <div class="ui fluid centered card">
-      <a class="image">
-        <img src="/img/profile.jpg">
-      </a>
-      <div class="content">
-        <a class="header">Helen Troy</a>
+  </div>
+  <% end %>
+  <div class="ui stacked segment center aligned requested-friends">
+  <h4>Friends Suggestions</h4>
+  <div class="ui special cards">
+    <% suggested_friends.each do |friend| %>
+      <div class="card">
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
+            <div class="content">
+              <div class="center">
+                <%= link_to '<div class="ui inverted button">Add Friend</div>'.html_safe, request_friend_user_path(friend.id) %>
+              </div>
+            </div>
+          </div>
+          <img src="<%= friend.profile.profile_pic.url(:thumb) %>">
+        </div>
+        <div class="content">
+          <h4><%= friend.username %></h4>
+        </div>
       </div>
-    </div>
-    <div class="ui fluid centered card">
-      <a class="image">
-        <img src="/img/profile.jpg">
-      </a>
-      <div class="content">
-        <a class="header">Elliot Fu</a>
-      </div>
-    </div>
-    <div class="ui divider"></div>
-    <h4>Suggested Freinds</h4>
-    <div class="ui fluid centered card">
-      <a class="image">
-        <img src="/img/profile.jpg">
-      </a>
-      <div class="content">
-        <a class="header">Lucy Fabric</a>
-      </div>
-    </div>
-    <div class="ui fluid centered card">
-      <a class="image">
-        <img src="/img/profile.jpg">
-      </a>
-      <div class="content">
-        <a class="header">Tony Will</a>
-      </div>
-    </div>
-    <div class="ui fluid centered card">
-      <a class="image">
-        <img src="/img/profile.jpg">
-      </a>
-      <div class="content">
-        <a class="header">Jake Lee</a>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

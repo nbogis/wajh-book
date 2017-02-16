@@ -28,6 +28,6 @@
       </div>
     </div>
     <!-- display friends suggestions -->
-    <%= render partial: "posts/suggest_friends" %>
+    <%= render partial: "posts/suggest_friends", locals: {suggested_friends: @suggested_friends, pending: @pending_friends} %>
   </div>
 </div>

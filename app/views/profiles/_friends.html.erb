@@ -1,0 +1,47 @@
+<div class="ui bottom attached tab segment" data-tab="friends">
+  <h2>Friends</h2>
+    <div class="ui link cards">
+      <% friends.each do |friend| %>
+        <div class="card">
+          <div class="image">
+            <img src="<%= friend.profile.profile_pic.url(:thumb) %>">
+          </div>
+          <div class="content">
+            <div class="header"><%= link_to friend.username, user_profile_path(friend) %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% if pending.count > 0 %>
+    <div class="ui divider"></div>
+    <h2>Pending Friend Requests</h2>
+    <div class="ui link cards">
+    <% pending.each do |friend| %>
+      <div class="card">
+        <div class="image">
+          <img src="<%= friend.profile.profile_pic.url(:thumb) %>">
+        </div>
+        <div class="content">
+          <div class="header"><%= link_to friend.username, user_profile_path(friend) %></div>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+  <% if requested.count > 0 %>
+    <div class="ui divider"></div>
+    <h2>Requested Friends</h2>
+    <div class="ui link cards">
+    <% requested.each do |friend| %>
+    <div class="card">
+      <div class="image">
+        <img src="<%= friend.profile.profile_pic.url(:thumb) %>">
+      </div>
+      <div class="content">
+        <div class="header"><%= link_to friend.username, user_profile_path(friend) %></div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>
