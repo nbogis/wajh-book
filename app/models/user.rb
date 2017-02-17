@@ -45,6 +45,10 @@ class User < ApplicationRecord
 
   after_create :create_profile
 
+  scope :get_all_users, -> {
+      User.all
+  }
+
   scope :find_friends_with_status, -> (user, status) {
     User.joins("JOIN Friendings ON users.id = Friendings.friend_id").where("friender_id = ?", user.id).where("status =?",status)
   }

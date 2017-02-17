@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+
+  def search_users
+    @searched_users = User.where("username like ? OR first_name like ? OR last_name like ?", "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%")
+  end
+
   protected
 
   def configure_permitted_parameters

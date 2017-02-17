@@ -14,6 +14,14 @@
       <%= link_to "Profile", user_profile_path(current_user), class: "teal item" %>
       <%= link_to "Friends", root_path, class: "teal item" %>
       <%= link_to "Log out", log_out_path, method: :delete, class: "teal item" %>
+      <div class="ui fluid search item">
+        <div class="ui icon input">
+          <input class="prompt" type="text" placeholder="Search friends...">
+          <i class="search icon"></i>
+        </div>
+        <div class="results">
+        </div>
+      </div>
     <% else %>
       <%= link_to "Sign in", sign_in_path, class: "teal item" %>
     <% end %>
