@@ -4,10 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, password_length: 5..15
 
-  validates :username, :email, presence: true
-  validates :username, :email, uniqueness: true
+  validates :username, :email, presence: true, uniqueness: true
 
-  validates :password, presence: true, :allow_nil => true
+  validates :password, :password_confirmation, presence: true
 
   has_one :profile, dependent: :destroy
 
@@ -20,10 +19,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   has_many :likes, dependent: :destroy
-
-  # there is no need for a likings table since like does't take many forms. However, we want to know how many likes a post or comment has meaning the source is polymorphic.
-  # has_many :liked_text_posts, through: :likes, source: :likeable, source_type: "Post", dependent: :destroy
-  # has_many :likes_comments, through: :likes, source: :likeable, source_type: "Comment", dependent: :destroy
 
   # Setup friending initiated side
   # the friends I initiated friendings from
