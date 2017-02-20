@@ -37,7 +37,7 @@ puts "create users"
                                   :work => Faker::Company.name,
                                   :languages => "Arabic, English",
                                   :phone => Faker::PhoneNumber.cell_phone,
-                                  :dob => 2/4/1990)
+                                  :dob => "2/4/1990".to_date)
   user.save!
 end
 

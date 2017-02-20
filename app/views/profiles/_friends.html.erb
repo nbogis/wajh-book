@@ -1,6 +1,7 @@
 <div class="ui bottom attached tab segment" data-tab="friends">
   <% if User.is_friend?(current_user, user) || same_user?(current_user, @user) %>
-    <h2>Friends</h2>
+    <% if @user.friends.count > 0 %>
+      <h2>Friends</h2>
       <div class="ui link cards">
         <% friends.each do |friend| %>
           <div class="card small-card">
@@ -13,6 +14,7 @@
           </div>
         <% end %>
       </div>
+    <% end %>
     <% if pending.count > 0 %>
       <div class="ui divider"></div>
       <h2>Pending Friend Requests</h2>
@@ -34,7 +36,7 @@
       <h2>Requested Friends</h2>
       <div class="ui link cards">
       <% requested.each do |friend| %>
-      <div class="card">
+      <div class="card small_card">
         <div class="image">
           <img src="<%= friend.profile.profile_pic.url(:medium) %>">
         </div>

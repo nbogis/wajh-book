@@ -30,33 +30,38 @@ class User < ApplicationRecord
                                    :foreign_key => :friender_id,
                                    :class_name => "Friending",
                                    :dependent => :destroy
-  # # the friends who received the user initiated request
+
+  # records of all the user I requested friends with
   has_many :requested_friends, :through => :initiated_friendings,
                             :source => :friend_recipient
-  #
-  #
-  # # Setup friending receiver side
-  # # the friends who received the friending request
+
+  # Setup friending receiver side
   has_many :received_friendings, -> { where status: "requested" },
                                  :foreign_key => :friend_id,
                                  :class_name => "Friending",
                                  :dependent => :destroy
-  # the friend who initiated the received request
+
+  # records of all the friends that requested my friending and waiting for me too accept
   has_many :pending_friends, :through => :received_friendings,
                              :source => :friend_initiator
 
+  # The record of rejections
   has_many :rejected_friendings, -> { where status: "rejected" },
                                 :foreign_key => :friend_id,
                                 :class_name => "Friending",
                                 :dependent => :destroy
-  # the friend who initiated the received request
+
+  # records of all the users that have rejection status with me
   has_many :rejected_friends, :through => :rejected_friendings,
                               :source => :friend_initiator
 
+  # records in friending that have accepted status
   has_many :accepted_friending, -> { where status: "accepted" },
                                 :foreign_key => :friend_id,
                                 :class_name => "Friending",
                                 :dependent => :destroy
+
+  # records of all the users that I'm friend with
   has_many :friends, :through => :accepted_friending,
                      :source => :friend_initiator
 
@@ -65,10 +70,6 @@ class User < ApplicationRecord
   scope :get_all_users, -> {
       User.all
   }
-
-  # scope :find_friends_with_status, -> (user, status) {
-  #   User.joins("JOIN Friendings ON users.id = Friendings.friend_id").where("friender_id = ?", user.id).where("status =?",status)
-  # }
 
   def self.is_friend?(user_1, user_2)
     if user_1.friends.include?(user_2)
@@ -85,6 +86,9 @@ class User < ApplicationRecord
     elsif user_1.pending_friends.include?(user_2) ||  user_1.requested_friends.include?(user_2)
       puts "a friendhsip request already exist"
       false
+    elsif user_1.friends.include?(user_2)
+      puts "you are already friends"
+      false
     else
       puts "you can add your friend"
       true
@@ -97,9 +101,6 @@ class User < ApplicationRecord
       Friending.create(:friender_id => requester.id,
                        :friend_id => receiver.id,
                        :status => "requested")
-      # Friending.create(:friender_id => receiver.id,
-      #                  :friend_id => requester.id,
-      #                  :status => "pending")
     end
   end
 
@@ -110,9 +111,10 @@ class User < ApplicationRecord
       friendship_record.save!
 
       # update the friendship from the other side too
-      # friendship_record = Friending.get_friendship_record(requester,receiver)
-      # friendship_record.status = "accepted"
-      # friendship_record.save!
+      friendship_record = Friending.create(:friender_id => receiver.id,
+                       :friend_id => requester.id,
+                       :status => "accepted")
+      friendship_record.save!
     end
   end
 
@@ -123,9 +125,10 @@ class User < ApplicationRecord
       friendship_record.status = "rejected"
       friendship_record.save!
       # reject the opposite record
-      # friendship_record = Friending.get_friendship_record(requester, receiver)
-      # friendship_record.status = "rejected"
-      # friendship_record.save!
+      friendship_record = Friending.create(:friender_id => receiver.id,
+                       :friend_id => requester.id,
+                       :status => "rejected")
+      friendship_record.save!
     end
   end
 
@@ -134,8 +137,8 @@ class User < ApplicationRecord
     if friendship_record.status == "accepted"
       friendship_record.delete()
 
-      # friendship_record = Friending.get_friendship_record(receiver, requester)
-      # friendship_record.delete()
+      friendship_record = Friending.get_friendship_record(receiver, requester)
+      friendship_record.delete()
     end
   end
 

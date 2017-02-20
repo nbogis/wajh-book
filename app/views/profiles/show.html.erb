@@ -1,14 +1,5 @@
 <%= render "shared/navbar" %>
 
-<!-- if the profile hasn't been edited -->
-<% if @profile.updated_at == @profile.created_at %>
-  <div class="ui container">
-    <%= link_to edit_user_profile_path(@user) do %>
-      <button class="ui teal button">Edit profile</button>
-    <% end %>
-  </div>
-<% else %>
-
 <!-- background and profile image -->
 <% if current_user == @user %>
 <div class="ui container">
@@ -134,4 +125,3 @@
   <%= render :partial => "pictures",  locals: { user: @user } %>
   </div>
   <!-- End pointing menu -->
-<% end %>
