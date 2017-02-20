@@ -19,7 +19,7 @@ class PostsController < ApplicationController
       end
     end
 
-    @pending_friends = User.find_friends_with_status(current_user, "pending")
+    @pending_friends = current_user.pending_friends
   end
 
   def new

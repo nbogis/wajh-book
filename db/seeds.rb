@@ -9,15 +9,11 @@
 puts "destroy all users"
 User.destroy_all
 
+puts "destroying all friendings"
+Friending.destroy_all
+
 puts "destroying all posts"
 Post.destroy_all
-
-puts "destroying all comments"
-Comment.destroy_all
-
-# it get automaticall destroyed by the dependency
-# puts "destroying all likes"
-# Like.destroy_all
 
 puts "destroying all postings"
 Posting.destroy_all
@@ -41,7 +37,7 @@ puts "create users"
                                   :work => Faker::Company.name,
                                   :languages => "Arabic, English",
                                   :phone => Faker::PhoneNumber.cell_phone,
-                                  :dob => 2/4/1990)
+                                  :dob => "2/4/1990".to_date)
   user.save!
 end
 
