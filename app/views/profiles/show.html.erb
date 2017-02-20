@@ -1,4 +1,4 @@
-<%= render "shared/navbar" %>
+<%= render :partial => "shared/navbar", locals: {users: User.all.to_json } %>
 
 <!-- if the profile hasn't been edited -->
 <% if @profile.updated_at == @profile.created_at %>
