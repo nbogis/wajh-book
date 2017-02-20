@@ -11,9 +11,9 @@ class ProfilesController < ApplicationController
       @age = age(@profile.dob)
     end
     @postings = Posting.where(:user_id => @user.id).order(created_at: :desc)
-    @friends = @user.friended_users
-    @pending_friends = User.find_friends_with_status(@user, "pending")
-    @requested_friends = User.find_friends_with_status(@user, "requested")
+    @friends = @user.friends
+    @pending_friends = @user.pending_friends
+    @requested_friends = @user.requested_friends
   end
 
   def edit

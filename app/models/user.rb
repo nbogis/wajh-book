@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, password_length: 5..15
 
-  validates :username, :email, presence: true, uniqueness: true
+  validates :username, :email, presence: true,uniqueness: true
 
   validates :password, :password_confirmation, presence: true
 
@@ -21,22 +21,45 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   # Setup friending initiated side
-  # the friends I initiated friendings from
-  has_many  :initiated_friendings, :foreign_key => :friender_id,
+  # the friends I initiated friendings with
+  has_many  :initiated_friendings, -> { where  status: "requested"  },
+                                   :foreign_key => :friender_id,
                                    :class_name => "Friending",
                                    :dependent => :destroy
-  # the friends who received the user initiated request
-  has_many :friended_users, :through => :initiated_friendings,
+
+  # records of all the user I requested friends with
+  has_many :requested_friends, :through => :initiated_friendings,
                             :source => :friend_recipient
 
   # Setup friending receiver side
-  # the friends who received the friending request
-  has_many :received_friendings, :foreign_key => :friend_id,
+  has_many :received_friendings, -> { where status: "requested" },
+                                 :foreign_key => :friend_id,
                                  :class_name => "Friending",
                                  :dependent => :destroy
-  # the friend who initiated the received request
-  has_many :users_friended_by, :through => :received_friendings,
-                               :source => :friend_initiator
+
+  # records of all the friends that requested my friending and waiting for me too accept
+  has_many :pending_friends, :through => :received_friendings,
+                             :source => :friend_initiator
+
+  # The record of rejections
+  has_many :rejected_friendings, -> { where status: "rejected" },
+                                :foreign_key => :friend_id,
+                                :class_name => "Friending",
+                                :dependent => :destroy
+
+  # records of all the users that have rejection status with me
+  has_many :rejected_friends, :through => :rejected_friendings,
+                              :source => :friend_initiator
+
+  # records in friending that have accepted status
+  has_many :accepted_friending, -> { where status: "accepted" },
+                                :foreign_key => :friend_id,
+                                :class_name => "Friending",
+                                :dependent => :destroy
+
+  # records of all the users that I'm friend with
+  has_many :friends, :through => :accepted_friending,
+                     :source => :friend_initiator
 
   after_create :create_profile
 
@@ -44,12 +67,8 @@ class User < ApplicationRecord
       User.all
   }
 
-  scope :find_friends_with_status, -> (user, status) {
-    User.joins("JOIN Friendings ON users.id = Friendings.friend_id").where("friender_id = ?", user.id).where("status =?",status)
-  }
-
   def self.is_friend?(user_1, user_2)
-    if find_friends_with_status(user_1, "accepted").include?(user_2)
+    if user_1.friends.include?(user_2)
       true
     else
       false
@@ -60,8 +79,11 @@ class User < ApplicationRecord
     if user_1 == user_2
       puts "can't friend yourself"
       false
-    elsif user_1.friended_users.include?(user_2) ||  user_2.friended_users.include?(user_1)
+    elsif user_1.pending_friends.include?(user_2) ||  user_1.requested_friends.include?(user_2)
       puts "a friendhsip request already exist"
+      false
+    elsif user_1.friends.include?(user_2)
+      puts "you are already friends"
       false
     else
       puts "you can add your friend"
@@ -75,34 +97,33 @@ class User < ApplicationRecord
       Friending.create(:friender_id => requester.id,
                        :friend_id => receiver.id,
                        :status => "requested")
-      Friending.create(:friender_id => receiver.id,
-                       :friend_id => requester.id,
-                       :status => "pending")
     end
   end
 
   def self.accept_friend(requester, receiver)
-    friendship_record = Friending.get_friendship_record(receiver,requester)
-    if friendship_record.status == "pending"
+    friendship_record = Friending.get_friendship_record(requester,receiver)
+    if friendship_record.status == "requested"
       friendship_record.status = "accepted"
       friendship_record.save!
 
       # update the friendship from the other side too
-      friendship_record = Friending.get_friendship_record(requester,receiver)
-      friendship_record.status = "accepted"
+      friendship_record = Friending.create(:friender_id => receiver.id,
+                       :friend_id => requester.id,
+                       :status => "accepted")
       friendship_record.save!
     end
   end
 
   def self.reject_friend(requester, receiver)
-    friendship_record = Friending.get_friendship_record(receiver, requester)
+    friendship_record = Friending.get_friendship_record(requester, receiver)
     puts friendship_record
-    if friendship_record.status == "pending"
+    if friendship_record.status == "requested"
       friendship_record.status = "rejected"
       friendship_record.save!
       # reject the opposite record
-      friendship_record = Friending.get_friendship_record(requester, receiver)
-      friendship_record.status = "rejected"
+      friendship_record = Friending.create(:friender_id => receiver.id,
+                       :friend_id => requester.id,
+                       :status => "rejected")
       friendship_record.save!
     end
   end
