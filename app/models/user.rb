@@ -29,7 +29,8 @@ class User < ApplicationRecord
 
   # records of all the user I requested friends with
   has_many :requested_friends, :through => :initiated_friendings,
-                            :source => :friend_recipient
+                            :source => :friend_recipient,
+                            :dependent => :destroy
 
   # Setup friending receiver side
   has_many :received_friendings, -> { where status: "requested" },
@@ -39,7 +40,8 @@ class User < ApplicationRecord
 
   # records of all the friends that requested my friending and waiting for me too accept
   has_many :pending_friends, :through => :received_friendings,
-                             :source => :friend_initiator
+                             :source => :friend_initiator,
+                             :dependent => :destroy
 
   # The record of rejections
   has_many :rejected_friendings, -> { where status: "rejected" },
@@ -49,7 +51,8 @@ class User < ApplicationRecord
 
   # records of all the users that have rejection status with me
   has_many :rejected_friends, :through => :rejected_friendings,
-                              :source => :friend_initiator
+                              :source => :friend_initiator,
+                              :dependent => :destroy
 
   # records in friending that have accepted status
   has_many :accepted_friending, -> { where status: "accepted" },
@@ -59,7 +62,8 @@ class User < ApplicationRecord
 
   # records of all the users that I'm friend with
   has_many :friends, :through => :accepted_friending,
-                     :source => :friend_initiator
+                     :source => :friend_initiator,
+                     :dependent => :destroy
 
   after_create :create_profile
 
