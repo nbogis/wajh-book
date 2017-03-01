@@ -1,7 +1,9 @@
 class Post < ApplicationRecord
-  validates :body,  :presence => true, length: {maximum: 700}
+  validates :body, :presence => true, length: {maximum: 700}
   has_many :postings, as: :postable, :dependent => :destroy
   has_many :authors, through: :postings, source: :user
+
+  validates :postings, :presence => true
 
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :commenters, through: :comments, source: :user

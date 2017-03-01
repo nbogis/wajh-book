@@ -37,6 +37,6 @@ class ProfilesController < ApplicationController
   private
   def whitelisted_profile_params
     params.require(:profile).permit(:home_place, :current_place, :college, :high_school, :about_me,
-                          :interests, :relationship, :work, :languages, :phone, :dob, :profile_pic, :cover_pic)
+    :interests, :relationship, :work, :languages, :phone, :dob, :profile_pic, :cover_pic)
   end
 end

@@ -39,6 +39,8 @@ RSpec.configure do |config|
   # setting up FactoryGirl
   config.include FactoryGirl::Syntax::Methods
 
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
