@@ -77,7 +77,7 @@ describe ProfilesController do
         expect(response).to redirect_to(user_session_path)
       end
 
-      it "sets an error flash" do
+      it "sets an alert flash" do
         expect(flash[:alert]).to_not be_nil
       end
     end

@@ -12,10 +12,13 @@ class PostsController < ApplicationController
 
     @suggested_friends = []
     users_ids = User.all.pluck(:id).shuffle
-    10.times do |t|
+    User.count.times do |t|
       user = User.find(users_ids[t])
       if User.can_add_friend?(current_user, user)
         @suggested_friends.push(user)
+      end
+      if t > 10
+        break
       end
     end
 
@@ -27,15 +30,17 @@ class PostsController < ApplicationController
   end
 
   def create
-      user = current_user
+    user = current_user
 
-      if @post = user.text_posts.create!(whitelisted_post_params)
-        flash[:success] = "You successfully created a post"
-        redirect_to :root
-      else
-        flash[:error] = "Sorry your post couldn't be created"
-        render :new
-      end
+    @post = user.text_posts.build(whitelisted_post_params)
+
+    if @post.save
+      flash[:success] = "You successfully created a post"
+      redirect_to :root
+    else
+      flash[:error] = "Sorry your post couldn't be created"
+      render :new
+    end
   end
 
   def show
@@ -60,6 +65,7 @@ class PostsController < ApplicationController
       flash[:success] = "You successfully updated your post"
       redirect_to @post
     else
+      flash[:error] = "Sorry we couldn't update your post"
       render :edit
     end
   end
