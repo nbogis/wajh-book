@@ -5,7 +5,7 @@ describe Post, :type => :model  do
   let(:post) { user.text_posts.create(body: "new post")}
 
   context "attributes validations" do
-    
+
     it "succeeds to create a text post" do
       expect(post).to be_valid
     end
@@ -15,7 +15,8 @@ describe Post, :type => :model  do
       expect(new_post).not_to be_valid
     end
 
-    it "validates body length to be less than 700" do
+    it "validates body length to be less than 700"  do
+      post
       should validate_length_of(:body).is_at_most(700)
     end
 

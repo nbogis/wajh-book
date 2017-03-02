@@ -27,7 +27,7 @@ describe Picture, :type => :model  do
 
   end
 
-  context "tests associations", focus: true do
+  context "tests associations" do
 
     it { should have_many(:postings) }
 
