@@ -5,7 +5,7 @@ describe Post, :type => :model  do
   let(:post) { user.text_posts.create(body: "new post")}
 
   context "attributes validations" do
-
+    
     it "succeeds to create a text post" do
       expect(post).to be_valid
     end
