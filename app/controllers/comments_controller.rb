@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(whitelisted_comment_params)
     # post_id is in params not commentable_id and type. This could be picture_id so we need to do get the type id to get commentable_id
+      dfadsf
     type = params[:commentable]
     type_id = type.downcase + "_id"
     @comment.commentable_type = type
@@ -83,9 +84,9 @@ class CommentsController < ApplicationController
   end
 
   private
-  def whitelisted_comment_params
-    params.require(:comment).permit(:body)
-  end
+    def whitelisted_comment_params
+      params.require(:comment).permit(:body)
+    end
 
 
 end

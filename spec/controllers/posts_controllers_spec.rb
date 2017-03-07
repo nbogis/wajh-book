@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe PostsController do
+describe PostsController, focus: true do
 
   let(:user) { create(:user)}
   let(:text_post) { user.text_posts.create(:body => "this is a text post")}
