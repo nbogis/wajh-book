@@ -1,3 +1,19 @@
 // Place all the styles related to the user controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.vertical.divider {
+  color: #009688 !important;
+  height: calc(50% - 1rem ) !important;
+}
+
+.padding-right {
+  padding-right: 5% !important;
+}
+
+.padding-left {
+  padding-left: 5% !important;
+}
+
+.ribbon {
+   left: calc(55% + 1rem + 1.2em ) !important;
+}
